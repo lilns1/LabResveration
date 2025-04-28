@@ -1,1 +1,66 @@
 /* pages/bookinglab/bookinglab.wxss */
+.container {
+    padding: 20rpx;
+  }
+  
+  .lab-info {
+    padding: 10rpx 0;
+  }
+  
+  .lab-basic {
+    margin-bottom: 20rpx;
+  }
+  
+  .lab-item {
+    display: flex;
+    padding: 8rpx 0;
+  }
+  
+  .label {
+    color: #666;
+    font-size: 28rpx;
+    width: 160rpx;
+  }
+  
+  .value {
+    color: #333;
+    font-size: 28rpx;
+    flex: 1;
+  }
+  
+  .lab-description {
+    padding: 10rpx 0;
+    font-size: 26rpx;
+    color: #666;
+    border-top: 1px solid #eee;
+    margin-top: 10rpx;
+  }
+  
+  .description-text {
+    line-height: 1.5;
+  }
+  
+  .lab-actions {
+    margin-top: 20rpx;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .select-btn {
+    min-width: 200rpx;
+  }
+  /* 在现有样式的底部添加 */
+.container {
+  padding: 10rpx;  /* 减小容器的内边距，让卡片可以占据更多空间 */
+}
+
+.wide-card {
+  width: 95vw !important;  /* 设置卡片宽度为视窗宽度的95% */
+  margin: 15rpx auto !important;  /* 居中并增加上下间距 */
+}
+
+/* 确保actions区域样式合适 */
+.select-btn {
+  min-width: 180rpx;
+  margin-right: 20rpx; /* 如果按钮在actions区域靠右的话 */
+}

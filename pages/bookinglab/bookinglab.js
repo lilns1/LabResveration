@@ -1,24 +1,13 @@
 // pages/bookinglab/bookinglab.js
+const app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    lib: [
-      {
-        id: "X301",
-        name: "网络实训室",
-        capacity: 60,
-        label: 'zheshiwangluoshixunshi'
-      },
-      {
-        id: "Y602",
-        name: "软件实训室",
-        capacity: 50,
-        label: '有很多电脑'
-      }
-    ]
+    lib: []
   },
   gotime(e) {
     console.log(e);
@@ -32,8 +21,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    //获取lib数据
-    
+    this.setData({
+      lib: app.globalData.lib
+    });
+    console.log(this.data.lib);
   },
 
   /**

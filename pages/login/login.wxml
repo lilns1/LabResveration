@@ -1,14 +1,9 @@
 <!--pages/login/login.wxml-->
 <view>
-<t-input label="学号" placeholder="请输入学号" />
-<t-input
-  label="输入密码"
-  type="password"
-  value="{{textPassword}}"
-  suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"
-/>
+	<t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
+	<t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
 </view>
 <view>
-<t-button>登录</t-button>
-<t-link size="small" theme="primary" content="点击注册" hover />
+	<t-button bind:tap="trylogin">登录</t-button>
+	<navigator url="/pages/register/register" hover-class="navigator-hover">没有账号？点击注册</navigator>
 </view>

@@ -1,16 +1,23 @@
 <tab-bar></tab-bar>
-<t-swiper
-  current="{{current}}"
-  autoplay="{{autoplay}}"
-  duration="{{duration}}"
-  interval="{{interval}}"
-  list="{{swiperList}}"
-  navigation="{{ { type: 'dots-bar' } }}"
-/>
+<swiper></swiper>
 <notice></notice>
 <my-card title="我的预约">
   <view slot="content">
-    <text>123</text>
+    <block wx:if="{{currentIndex === -1}}">
+      <view class="no-reservation">当前无预约</view>
+    </block>
+    <block wx:else>
+      <view wx:if="{{reserArr[currentIndex]}}" class="reservation-info">
+        <view class="info-item">实验室: {{reserArr[currentIndex].labId}}</view>
+        <view class="info-item">日期: {{reserArr[currentIndex].reservationDate}}</view>
+        <view class="info-item">时间: {{reserArr[currentIndex].startTime}} - {{reserArr[currentIndex].endTime}}</view>
+        <view class="info-item">状态: {{reserArr[currentIndex].reservationStatus}}</view>
+        <view class="info-item purpose">目的: {{reserArr[currentIndex].purpose || '无'}}</view>
+      </view>
+      <view wx:else class="loading">
+        数据加载中...
+      </view>
+    </block>
   </view>
 </my-card>
 
