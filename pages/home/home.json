@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "my-card": "/components/my-card/my-card",
+    "t-avatar": "tdesign-miniprogram/avatar/avatar",
+    "t-avatar-group": "tdesign-miniprogram/avatar-group/avatar-group"
+  }
+}

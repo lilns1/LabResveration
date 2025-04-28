@@ -1,0 +1,29 @@
+<tab-bar></tab-bar>
+<t-swiper
+  current="{{current}}"
+  autoplay="{{autoplay}}"
+  duration="{{duration}}"
+  interval="{{interval}}"
+  list="{{swiperList}}"
+  navigation="{{ { type: 'dots-bar' } }}"
+/>
+<notice></notice>
+<my-card title="我的预约">
+  <view slot="content">
+    <text>123</text>
+  </view>
+</my-card>
+
+<view>
+  <t-row gutter="16">
+    <t-col span="500">
+      <t-button theme="primary" size="large" bind:tap="handletap" data-tar="/pages/bookinglab/bookinglab">开始预约</t-button>
+    </t-col>
+    <t-col span="200">
+      <t-button theme="primary" size="large" bind:tap="handletap" data-tar="/pages/choosetime/choosetime">我的预约</t-button>
+    </t-col>
+  </t-row>
+</view>
+
+
+

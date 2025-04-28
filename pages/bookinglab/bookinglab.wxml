@@ -1,0 +1,9 @@
+<!--pages/bookinglab/bookinglab.wxml-->
+<my-card wx:for="{{lib}}" wx:key="id" title="{{item.name}}">
+  <view slot="content">
+  <view>{{item.label}}</view>
+  </view>
+  <view slot="actions">
+    <t-button bind:tap="gotime" data-lab="{{item.id}}">预约</t-button>
+  </view>
+</my-card>

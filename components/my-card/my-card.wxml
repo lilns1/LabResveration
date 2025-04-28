@@ -1,0 +1,18 @@
+<!--components/my-card/my-card.wxml-->
+<view class="card {{ hover ? 'card--hover' : '' }}" hover-class="{{ hover ? 'card--hover' : '' }}" hover-stay-time="50">
+  <!-- 头部（标题 + 缩略图） -->
+  <view class="card__header">
+    <image wx:if="{{ thumb }}" class="card__thumb" src="{{ thumb }}" mode="aspectFill" />
+    <text class="card__title">{{ title }}</text>
+  </view>
+
+  <!-- 内容区 -->
+  <view class="card__content">
+    <slot name="content"></slot>
+  </view>
+
+  <!-- 操作按钮插槽 -->
+  <view class="card__actions">
+    <slot name="actions"></slot>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+<!--pages/home/home.wxml-->
+<t-avatar class="avatar-example" t-class-content="external-class-content">A</t-avatar>
+<t-row gutter="16">
+  <t-button>设置</t-button>
+</t-row>
+<t-row gutter="16">
+  <t-button>关于</t-button>
+</t-row>

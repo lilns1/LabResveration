@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/home/home",
+    "pages/mybookingrecord/mybookingrecord",
+    "pages/bookinglab/bookinglab",
+    "pages/choosetime/choosetime",
+    "pages/register/register"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "实验室预约",
+    "navigationBarBackgroundColor": "#ffffff"
+  },
+  "usingComponents": {
+    "t-tab-bar": "tdesign-miniprogram/tab-bar/tab-bar",
+    "t-tab-bar-item": "tdesign-miniprogram/tab-bar-item/tab-bar-item",
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-row": "tdesign-miniprogram/row/row",
+    "t-col": "tdesign-miniprogram/col/col",
+    "t-input": "tdesign-miniprogram/input/input"
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/home/home",
+        "text": "我的"
+      }
+    ]
+  }
+}
