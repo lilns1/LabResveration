@@ -1,66 +1,87 @@
+/* filepath: d:\LabReservation\pages\bookinglab\bookinglab.wxss */
 /* pages/bookinglab/bookinglab.wxss */
+
 .container {
-    padding: 20rpx;
-  }
-  
-  .lab-info {
-    padding: 10rpx 0;
-  }
-  
-  .lab-basic {
-    margin-bottom: 20rpx;
-  }
-  
-  .lab-item {
-    display: flex;
-    padding: 8rpx 0;
-  }
-  
-  .label {
-    color: #666;
-    font-size: 28rpx;
-    width: 160rpx;
-  }
-  
-  .value {
-    color: #333;
-    font-size: 28rpx;
-    flex: 1;
-  }
-  
-  .lab-description {
-    padding: 10rpx 0;
-    font-size: 26rpx;
-    color: #666;
-    border-top: 1px solid #eee;
-    margin-top: 10rpx;
-  }
-  
-  .description-text {
-    line-height: 1.5;
-  }
-  
-  .lab-actions {
-    margin-top: 20rpx;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .select-btn {
-    min-width: 200rpx;
-  }
-  /* 在现有样式的底部添加 */
-.container {
-  padding: 10rpx;  /* 减小容器的内边距，让卡片可以占据更多空间 */
+  padding: 10rpx; /* 使用后添加的较小内边距 */
+  box-sizing: border-box; /* 确保 padding 不会增加容器的总宽度 */
+  width: 100%;
 }
 
+/* 针对 my-card 组件的样式，如果 my-card 是自定义组件 */
+/* 注意：如果 my-card 内部结构复杂，可能需要更具体的选择器 */
 .wide-card {
-  width: 95vw !important;  /* 设置卡片宽度为视窗宽度的95% */
-  margin: 15rpx auto !important;  /* 居中并增加上下间距 */
+  width: 95vw !important; /* 设置卡片宽度为视窗宽度的95% */
+  margin: 15rpx auto !important; /* 居中并增加上下间距 */
+  display: block; /* 确保卡片是块级元素，以便 margin: auto 生效 */
 }
 
-/* 确保actions区域样式合适 */
+.lab-info {
+  padding: 10rpx 0;
+  font-size: 14px; /* 统一字体大小单位，或使用 rpx */
+  color: rgb(161, 21, 21);
+}
+
+.lab-basic {
+  margin-bottom: 15rpx; /* 调整间距 */
+}
+
+.lab-item {
+  display: flex;
+  padding: 8rpx 0;
+  align-items: flex-start; /* 垂直方向顶部对齐，防止多行文本错位 */
+}
+
+.label {
+  color: #666;
+  font-size: 28rpx;
+  width: 160rpx; /* 保持标签宽度 */
+  margin-right: 10rpx; /* 标签和值之间的间距 */
+  flex-shrink: 0; /* 防止标签被压缩 */
+}
+
+.value {
+  color: #333;
+  font-size: 28rpx;
+  flex: 1; /* 值占据剩余空间 */
+  word-break: break-word; /* 长单词或链接换行 */
+}
+
+.lab-description {
+  padding-top: 15rpx; /* 增加顶部内边距 */
+  font-size: 26rpx;
+  color: #555; /* 描述文本颜色稍深 */
+  border-top: 1rpx solid #f0f0f0; /* 使用 rpx 单位并调整颜色 */
+  margin-top: 15rpx; /* 增加顶部外边距 */
+}
+
+.description-text {
+  line-height: 1.5;
+  display: block; /* 确保文本块状显示 */
+}
+
+.description-text.muted { /* 为暂无描述添加样式 */
+  color: #999;
+}
+
+/* 如果 my-card 组件内部有明确的 actions 插槽容器，可以针对它设置样式 */
+/* 假设 actions 插槽渲染后有一个默认的 view 容器 */
+.wide-card ::after, /* 尝试选中组件内部的 slot 容器，可能需要根据组件实现调整 */
+.lab-actions { /* 保留这个以防万一 */
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end; /* 按钮靠右 */
+  padding: 10rpx 0; /* 给按钮区域一些内边距 */
+}
+
 .select-btn {
-  min-width: 180rpx;
-  margin-right: 20rpx; /* 如果按钮在actions区域靠右的话 */
+  min-width: 180rpx; /* 调整按钮最小宽度 */
+  /* margin-right: 20rpx; */ /* 如果按钮组内只有一个按钮，右边距可能不需要 */
+  /* 如果使用 t-button，它可能有自己的默认 margin，按需覆盖 */
+}
+
+.empty-tip {
+  text-align: center;
+  color: #999;
+  padding: 40rpx 20rpx; /* 增加上下内边距 */
+  font-size: 28rpx;
 }

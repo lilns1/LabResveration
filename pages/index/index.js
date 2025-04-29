@@ -11,7 +11,7 @@ Page({
     searchurl: ' ',
     reserArr: [],
     currentIndex: Number,
-    lib: []
+    lab: []
   },
   handletap(e) {
     console.log(e.currentTarget.dataset.tar);
@@ -24,9 +24,9 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      lib: app.globalData.lib
+      lab: app.globalData.lab
     });
-    // console.log(this.data.lib);
+    // console.log(this.data.lab);
     this.setData({
       userid: app.globalData.userid,
       searchurl: app.globalData.apiurl + 'reservation/user/' + app.globalData.userid
@@ -64,17 +64,17 @@ Page({
     const reservations = this.data.reserArr; // 获取预约记录数组
     let foundIndex = -1; // 初始化找到的索引为 -1 (表示未找到)
 
-    console.log("Current time:", now);
-    console.log("Reservations to check:", reservations);
+    // console.log("Current time:", now);
+    // console.log("Reservations to check:", reservations);
 
     for (let i = 0; i < reservations.length; i++) {
       const reservation = reservations[i];
       const reservationEndDateStr = reservation.reservationDate.replace(/-/g, '/') + ' ' + reservation.endTime;
       const reservationEndDateTime = new Date(reservationEndDateStr);
-      console.log('1', reservationEndDateTime);
+      // console.log('1', reservationEndDateTime);
       if (!isNaN(reservationEndDateTime.getTime()) && reservationEndDateTime > now && reservation.reservationStatus == 'confirmed') {
         foundIndex = i;
-        console.log(`Found matching reservation at index ${i}`);
+        // console.log(`Found matching reservation at index ${i}`);
         break; 
       }
     }
@@ -83,7 +83,7 @@ Page({
     this.setData({
       currentIndex: foundIndex
     });
-    console.log('Final currentIndex set to:', foundIndex);
+    // console.log('Final currentIndex set to:', foundIndex);
   },
 
   /**

@@ -1,39 +1,41 @@
 <!--pages/bookinglab/bookinglab.wxml-->
-<!-- filepath: e:\桌面\LabReservation\pages\bookinglab\bookinglab.wxml -->
-<!-- filepath: e:\桌面\LabReservation\pages\bookinglab\bookinglab.wxml -->
 <view class="container">
-  <my-card wx:for="{{lib}}" wx:key="labId" title="{{item.labName}}" class="wide-card">
-    <view slot="content" class="lab-info">
-      <view class="lab-basic">
-        <view class="lab-item">
-          <text class="label">实验室编号:</text>
-          <text class="value">{{item.labId}}</text>
+  <block wx:if="{{lab && lab.length > 0}}">
+    <my-card wx:for="{{lab}}" wx:key="labId" title="{{item.labName}}" class="wide-card">
+      <view slot="content" class="lab-info">
+        <view class="lab-basic">
+          <view class="lab-item">
+            <text class="label">实验室名称:</text>
+            <text class="value">{{item.labName}}</text>
+          </view>
+          <view class="lab-item">
+            <text class="label">位置:</text>
+            <text class="value">{{item.location || '暂无位置信息'}}</text>
+          </view>
+          <view class="lab-item">
+            <text class="label">容量:</text>
+            <text class="value">{{item.labCapacity + ' 人'}}</text>
+          </view>
         </view>
-        <view class="lab-item">
-          <text class="label">位置:</text>
-          <text class="value">{{item.location || '未设置'}}</text>
+
+        <view class="lab-description" wx:if="{{item.labDescription}}">
+          <text class="label">实验室概述:</text>
+          <text class="description-text">{{item.labDescription}}</text>
         </view>
-        <view class="lab-item">
-          <text class="label">容量:</text>
-          <text class="value">{{item.capacity || '--'}} 人</text>
+
+        <view class="lab-description" wx:else>
+          <text class="description-text muted">暂无描述</text>
         </view>
       </view>
-      
-      <view class="lab-description" wx:if="{{item.description}}">
-        <text class="description-text">{{item.description}}</text>
+
+      <view slot="actions">
+        <t-button theme="primary" size="small" bind:tap="selectLab" data-lab="{{item.labId}}" class="select-btn">
+          选择此实验室
+        </t-button>
       </view>
-    </view>
-    
-    <!-- 将按钮移到actions插槽 -->
-    <view slot="actions">
-      <t-button 
-        theme="primary" 
-        size="small" 
-        bind:tap="selectLab" 
-        data-lab="{{item}}"
-        class="select-btn">
-        选择此实验室
-      </t-button>
-    </view>
-  </my-card>
+    </my-card>
+  </block>
+  <view wx:else class="empty-tip">
+    <text>暂无可预约的实验室</text>
+  </view>
 </view>

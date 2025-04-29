@@ -7,13 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lib: []
+    lab: []
   },
-  gotime(e) {
-    console.log(e);
-    let libid = e.currentTarget.dataset.lab;
+  selectLab(e) {
+    // console.log(e);
+    const labId = e.currentTarget.dataset.lab;
     wx.navigateTo({
-      url: '/pages/choosetime/choosetime?libid=' + libid,
+      url: '/pages/choosetime/choosetime?labId=' + labId
     })
   },
 
@@ -22,9 +22,9 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      lib: app.globalData.lib
+      lab: app.globalData.lab
     });
-    console.log(this.data.lib);
+    // console.log(this.data.lab);
   },
 
   /**

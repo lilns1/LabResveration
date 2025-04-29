@@ -1,11 +1,14 @@
 <!--pages/register/register.wxml-->
-<view>
+<view class="page-container">
+  <view class="form-section">
     <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
     <t-input label="姓名" placeholder="请输入姓名" model:value="{{name}}" />
-    <t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
-    <t-input label="确认密码" type="password" model:value="{{textPassword2}}" />
-</view>
-<view>
-    <t-button bind:tap="tryRegister">注册</t-button>
-    <navigator url="/pages/login/login" hover-class="navigator-hover">已有账号？点击登录</navigator>
+    <t-input label="密码" type="password" placeholder="请输入密码" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
+    <t-input label="确认密码" type="password" placeholder="请再次输入密码" model:value="{{textPassword2}}" />
+  </view>
+
+  <view class="button-section">
+    <t-button class="register-button" theme="primary" bind:tap="tryRegister">注册</t-button>
+    <navigator class="login-navigator" url="/pages/login/login" hover-class="navigator-hover">已有账号？点击登录</navigator>
+  </view>
 </view>

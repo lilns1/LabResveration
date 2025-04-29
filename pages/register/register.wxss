@@ -1,1 +1,57 @@
+/* filepath: d:\LabReservation\pages\register\register.wxss */
 /* pages/register/register.wxss */
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 水平居中 */
+    justify-content: center; /* 垂直居中内容 */
+    padding: 40rpx;
+    box-sizing: border-box;
+    min-height: 100vh; /* 占据整个屏幕高度 */
+    background-color: #f8f8f8; /* 浅灰色背景 */
+  }
+  
+  .form-section {
+    width: 100%; /* 表单区域宽度占满容器 */
+    background-color: #ffffff; /* 白色背景 */
+    padding: 40rpx 30rpx; /* 内边距 */
+    border-radius: 16rpx; /* 圆角 */
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05); /* 轻微阴影 */
+    margin-bottom: 50rpx; /* 与下方按钮区域的间距 */
+  }
+  
+  /* 为 t-input 组件之间添加一些间距 */
+  .form-section t-input {
+    margin-bottom: 30rpx; /* 给每个输入框下方添加间距 */
+  }
+  .form-section t-input:last-child {
+    margin-bottom: 0; /* 最后一个输入框不需要下边距 */
+  }
+  
+  
+  .button-section {
+    width: 100%; /* 按钮区域宽度占满容器 */
+    display: flex;
+    flex-direction: column; /* 按钮和链接垂直排列 */
+    align-items: center; /* 内部元素居中 */
+  }
+  
+  /* 注册按钮样式 */
+  .register-button {
+    width: 100%; /* 按钮宽度占满 */
+    margin-bottom: 30rpx; /* 与登录链接的间距 */
+    /* 可以根据需要设置主题色，如 theme="primary" */
+  }
+  
+  /* 登录链接样式 */
+  .login-navigator {
+    font-size: 28rpx;
+    color: #0052d9; /* TDesign 主题蓝色 */
+    text-decoration: none;
+  }
+  
+  .navigator-hover {
+    color: #0044b3; /* 点击时的颜色变化 */
+    text-decoration: underline; /* 点击时显示下划线 */
+  }

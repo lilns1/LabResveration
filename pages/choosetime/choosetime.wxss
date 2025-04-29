@@ -1,1 +1,100 @@
 /* pages/choosetime/choosetime.wxss */
+/* filepath: d:\LabReservation\pages\choosetime\choosetime.wxss */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 使容器占满整个屏幕高度 */
+    background-color: #f4f4f4;
+  }
+  
+  /* 顶部日期选择 */
+  .date-selector {
+    padding: 20rpx 30rpx;
+    background-color: #ffffff;
+    border-bottom: 1rpx solid #eee;
+    text-align: center;
+  }
+  
+  .date-selector .picker {
+    font-size: 32rpx;
+    color: #333;
+    padding: 10rpx 0;
+    border: 1rpx solid #ddd;
+    border-radius: 8rpx;
+  }
+  
+  /* 中间时间段选择 */
+  .time-slots-container {
+    flex-grow: 1; /* 让时间段容器占据剩余空间 */
+    overflow-y: auto; /* 内容超出时可滚动 */
+    padding: 20rpx 30rpx;
+  }
+  
+  .time-slots {
+    display: grid;
+    /* 每行显示 3 个方块，可以根据需要调整 */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20rpx; /* 方块之间的间隙 */
+  }
+  
+  .time-slot {
+    padding: 25rpx 10rpx;
+    border: 1rpx solid #007aff; /* 蓝色边框 */
+    border-radius: 8rpx;
+    text-align: center;
+    font-size: 28rpx;
+    background-color: #ffffff;
+    color: #007aff; /* 蓝色文字 */
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  .time-slot.selected {
+    background-color: #007aff; /* 选中时蓝色背景 */
+    color: #ffffff; /* 选中时白色文字 */
+    border-color: #007aff;
+  }
+  
+  .time-slot.disabled {
+    background-color: #e0e0e0; /* 灰色背景 */
+    color: #999999; /* 灰色文字 */
+    border-color: #d0d0d0; /* 灰色边框 */
+    cursor: not-allowed; /* 禁用鼠标样式 */
+  }
+  
+  .no-slots {
+    text-align: center;
+    color: #999;
+    padding-top: 50rpx;
+    font-size: 30rpx;
+  }
+  
+  /* 底部预约信息 */
+  .booking-info {
+    padding: 20rpx 30rpx 40rpx; /* 增加底部内边距 */
+    background-color: #ffffff;
+    border-top: 1rpx solid #eee;
+    box-shadow: 0 -2rpx 5rpx rgba(0, 0, 0, 0.05); /* 顶部阴影 */
+  }
+  
+  .purpose-input {
+    width: 100%;
+    height: 150rpx; /* 调整文本框高度 */
+    padding: 15rpx;
+    border: 1rpx solid #ddd;
+    border-radius: 8rpx;
+    margin-bottom: 20rpx;
+    font-size: 28rpx;
+    box-sizing: border-box; /* 让 padding 不会撑大元素 */
+  }
+  
+  .submit-button {
+    width: 100%;
+    font-size: 32rpx;
+  }
+  
+  /* 按钮禁用时的样式 */
+  .submit-button[disabled] {
+    background-color: #c0c0c0; /* 禁用时背景色 */
+    color: #ffffff; /* 禁用时文字颜色 */
+  }

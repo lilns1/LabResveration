@@ -1,9 +1,12 @@
 <!--pages/login/login.wxml-->
-<view>
-	<t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
-	<t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
-</view>
-<view>
-	<t-button bind:tap="trylogin">登录</t-button>
-	<navigator url="/pages/register/register" hover-class="navigator-hover">没有账号？点击注册</navigator>
+<view class="page-container">
+  <view class="form-section">
+    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
+    <t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
+  </view>
+
+  <view class="button-section">
+    <t-button class="login-button" theme="primary" bind:tap="trylogin">登录</t-button>
+    <navigator class="register-navigator" url="/pages/register/register" hover-class="navigator-hover">没有账号？点击注册</navigator>
+  </view>
 </view>
