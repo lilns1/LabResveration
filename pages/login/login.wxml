@@ -10,6 +10,7 @@
     <t-input 
       label="密码" 
       type="{{showPassword ? 'text' : 'password'}}" 
+      placeholder="请输入密码"
       model:value="{{textPassword}}" 
       suffixIcon="{{ { name: showPassword ? 'browse' : 'browse-off', ariaLabel: '切换密码可见性' } }}"
       bind:click="togglePasswordVisibility"

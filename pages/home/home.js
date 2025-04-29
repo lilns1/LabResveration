@@ -39,20 +39,33 @@ Page({
     }
   },
 
-  
-  // 点击设置按钮跳转到设置页面
+
   navigateToSetting() {
     wx.navigateTo({
       url: '/pages/setting/setting'
     });
   },
   
-  // 点击关于按钮
   showAbout() {
     wx.showModal({
       title: '关于实验室预约系统',
-      content: '版本号：1.0.0\n开发者：实验室预约系统开发团队\n联系方式：contact@example.com',
+      content: '版本号：1.0.1\n开发者：实验室预约系统开发团队\n联系方式：contact@example.com',
       showCancel: false
+    });
+  },
+  logout: function() {
+    wx.showModal({
+      title: '提示',
+      content: '确定要退出登录吗？',
+      success: function(res) {
+        if (res.confirm) {
+          app.globalData.userid = null;
+          
+          wx.reLaunch({
+            url: '/pages/login/login'
+          });
+        }
+      }
     });
   }
 })

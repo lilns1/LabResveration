@@ -26,7 +26,7 @@
         data-id="{{item.id}}"
         bindtap="selectTimeSlot">
         <text class="time-text">{{item.timeSlot}}</text>
-        <text class="status-text" wx:if="{{item.isAvailable}}">剩余容量：{{item.capacity}}</text>
+        <text class="status-text">{{item.info}}</text>
         <text class="status-text">{{item.isAvailable ? '可预约' : '不可预约'}}</text>
       </view>
     </view>

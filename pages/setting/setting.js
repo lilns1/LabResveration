@@ -1,66 +1,88 @@
 // pages/setting/setting.js
-Page({
+const app = getApp();
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    userId: '',
+    userName: '', // 用户姓名
+    userPassword: '', // 用户密码
+    confirmPassword: '' // 确认密码
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  onLoad: function (options) {
+    this.setData({
+      userId: app.globalData.userid
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
+  updateUserInfo: function() {
+    const {userId, userName, userPassword, confirmPassword } = this.data;
 
-  },
+    if (userPassword) {
+      if (userPassword.length < 6) {
+        wx.showToast({
+          title: '密码长度不能少于6位',
+          icon: 'none'
+        });
+        return;
+      }
+      
+      if (userPassword !== confirmPassword) {
+        wx.showToast({
+          title: '两次输入密码不一致',
+          icon: 'error'
+        });
+        return;
+      }
+    }
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+    const updateData = {
+      "userId": userId,
+      "userName": userName === '' ? app.globalData.username : userName,
+      "userPassword": userPassword
+    };
+    // console.log(updateData);
+    const url = app.globalData.apiurl + 'user/' + userId;
+    // console.log(url);
+    wx.request({
+      url:  url,
+      method: 'PUT',
+      data: updateData,
+      header: {
+        'content-type': 'application/json',
+      },
+      success: (res) => {
+        // console.log(res);
+        if (res.statusCode === 200) {
+          wx.showToast({
+            title: '更新成功',
+            icon: 'success'
+          })
+          setTimeout(function(){
+            wx.reLaunch({
+              url: '/pages/login/login',
+            })
+          }, 2000);
+        } else {
+          wx.showToast({
+            title: res.data.message || '更新失败',
+            icon: 'none'
+          });
+        }
+      },
+      fail: (err) => {
+        console.error('更新用户信息失败:', err);
+        wx.showToast({
+          title: '网络异常，请重试',
+          icon: 'none'
+        });
+      }
+    });
   }
-})
+});

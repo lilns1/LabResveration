@@ -61,14 +61,15 @@ Page({
       },
       success: (res) => {
         // console.log('登录请求成功:', res);
+        wx.hideLoading();
         if (res.statusCode === 200 && res.data.code === 200 && res.data) { 
           wx.showToast({
             title: '登录成功',
             icon: 'success'
           });
-
+          app.globalData.username = res.data.data.userName;
           app.globalData.userid = studentId; 
-          // console.log('设置全局 userid:', app.globalData.userid);
+          // console.log("name", app.globalData.username);
 
           wx.switchTab({
             url: '/pages/index/index'
@@ -84,13 +85,11 @@ Page({
       },
       fail: (err) => {
         console.error('登录请求失败:', err);
+        wx.hideLoading();
         wx.showToast({
           title: '登录请求失败，请检查网络',
           icon: 'none'
         });
-      },
-      complete: () => {
-        wx.hideLoading();
       }
     });
   },

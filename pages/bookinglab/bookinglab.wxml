@@ -9,6 +9,10 @@
             <text class="value">{{item.labName}}</text>
           </view>
           <view class="lab-item">
+            <text class="label">开放时间:</text>
+            <text class="value">{{item.labOpentime}}-{{item.labClosetime}}</text>
+          </view>
+          <view class="lab-item">
             <text class="label">位置:</text>
             <text class="value">{{item.location || '暂无位置信息'}}</text>
           </view>
@@ -19,7 +23,7 @@
         </view>
 
         <view class="lab-description" wx:if="{{item.labDescription}}">
-          <text class="label">实验室概述:</text>
+          <!-- <text class="label">实验室概述:</text> -->
           <text class="description-text">{{item.labDescription}}</text>
         </view>
 

@@ -1,33 +1,45 @@
 <!-- filepath: d:\LabReservation\pages\home\home.wxml -->
-<view class="home-container">
-  <!-- 顶部用户信息区 -->
-  <view class="user-profile-section">
-    <t-avatar 
-      size="large" 
-      t-class-content="avatar-content">
-      {{userinfo.userName ? userinfo.userName[0] : 'U'}}
-    </t-avatar>
-    <view class="user-info">
-      <text class="username">{{userinfo.userName}}</text>
-      <text class="user-role">{{userinfo.userId}}</text>
+<view class="settings-container">
+  <view class="section-title">个人信息</view>
+  
+  <!-- 用户信息区 -->
+  <view class="settings-group">
+    <view class="user-profile-item">
+      <t-avatar 
+        size="large" 
+        t-class-content="avatar-content">
+        {{userinfo.userName ? userinfo.userName[0] : 'U'}}
+      </t-avatar>
+      <view class="user-info">
+        <text class="username">{{userinfo.userName}}</text>
+        <text class="user-role">{{userinfo.userId}}</text>
+      </view>
     </view>
   </view>
   
-  <!-- 底部工具栏 - 设置和关于按钮 -->
-  <view class="bottom-toolbar">
-    <t-button 
-      icon="setting" 
-      class="toolbar-btn"
-      theme="light"
-      bindtap="navigateToSetting">
-      设置
-    </t-button>
+  <view class="section-title">系统</view>
+  
+  <!-- 系统相关 -->
+  <view class="settings-group">
+    <view class="settings-item" bindtap="navigateToSetting">
+      <view class="item-left">
+        <t-icon name="setting" size="48rpx" color="#1aad19" />
+        <text class="item-text">设置账号信息</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
     
-    <t-button 
-      icon="help-circle" 
-      class="toolbar-btn"
-      bindtap="showAbout">
-      关于
-    </t-button>
+    <view class="settings-item" bindtap="showAbout">
+      <view class="item-left">
+        <t-icon name="help-circle" size="48rpx" color="#1aad19" />
+        <text class="item-text">关于本小程序</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
   </view>
+  
+  <!-- 退出登录按钮 -->
+  <button class="logout-btn" bindtap="logout">退出登录</button>
+  
+  <view class="app-version">实验室预约系统 V1.0.1</view>
 </view>

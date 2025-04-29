@@ -25,7 +25,7 @@ Page({
     this.setData({
       lab: app.globalData.lab
     });
-    // console.log(this.data.lab);
+    console.log(this.data.lab);
   },
 
   /**

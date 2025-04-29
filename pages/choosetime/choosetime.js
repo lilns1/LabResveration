@@ -100,7 +100,8 @@ Page({
         end: endTime,
         timeSlot: `${startTime}-${endTime}`,
         capacity: this.data.labCapacity,
-        isAvailable: true // 默认可用
+        isAvailable: true,
+        info: ''
       });
       timeToIndexMap[this.timeToMinute(startTime)] = index;
       index++;
@@ -163,7 +164,8 @@ Page({
         if (index !== undefined) {
           periods[index].capacity --;
           if (periods[index].capacity <= 0) {
-            periods[index].isAvailable = false; // 设置为不可用
+            periods[index].isAvailable = false;
+            periods[index].info = '预约已满'
           }
           // console.log(`设置已预约时段: ${periods[index].timeSlot} 为不可用`);
         }
@@ -175,9 +177,9 @@ Page({
     const selectedDate = new Date(this.data.date);
     const isToday = selectedDate.toDateString() === today.toDateString();
     
-    console.log("当前日期:", today.toDateString());
-    console.log("选择日期:", selectedDate.toDateString());
-    console.log("是否为今天:", isToday);
+    // console.log("当前日期:", today.toDateString());
+    // console.log("选择日期:", selectedDate.toDateString());
+    // console.log("是否为今天:", isToday);
     
     if (isToday) {
       const currentTime = today.getHours() * 60 + today.getMinutes();
@@ -187,8 +189,15 @@ Page({
         const endtime = this.timeToMinute(periods[i].end);
         if (endtime <= currentTime) {
           periods[i].isAvailable = false;
+          periods[i].info = '已过时';
           // console.log(`设置过期时段: ${periods[i].timeSlot} 为不可用`);
         }
+      }
+    }
+
+    for (let i = 0; i < periods.length; i ++) {
+      if (periods[i].isAvailable) {
+        periods[i].info = '剩余:' + periods[i].capacity; 
       }
     }
     this.setData({

@@ -130,10 +130,14 @@
   text-decoration: line-through;
 }
 
+.noraml.time-text {
+  color: #d0b2ff !important;
+}
+
 .time-text {
   font-size: 24rpx;
   font-weight: bold;
-  color: #333;
+  color: #383896;
 }
 
 .status-text {
@@ -141,6 +145,8 @@
   color: #666;
   margin-top: 6rpx;
 }
+
+
 
 /* 预约表单样式 - 调整宽度与上面一致 */
 .reservation-form {
