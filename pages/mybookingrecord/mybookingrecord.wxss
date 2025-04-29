@@ -1,1 +1,130 @@
-/* pages/mybookingrecord/mybookingrecord.wxss */
+.booking-records-container {
+    padding: 30rpx;
+    background-color: #f6f6f6;
+    min-height: 100vh;
+  }
+  
+  .page-header {
+    margin-bottom: 30rpx;
+    padding-bottom: 20rpx;
+    border-bottom: 1px solid #eeeeee;
+  }
+  
+  .header-title {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100rpx 0;
+    color: #999;
+    font-size: 28rpx;
+  }
+  
+  .booking-card {
+    margin-bottom: 30rpx !important;
+    border-radius: 12rpx !important;
+    overflow: hidden !important;
+    box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05) !important;
+    position: relative;
+    border-left: 6rpx solid #1aad19;
+  }
+  
+  .booking-card.cancelled {
+    border-left-color: #dddddd;
+    opacity: 0.85;
+  }
+  
+  .card-content {
+    position: relative;
+    padding: 10rpx 0;
+    padding-bottom: 50rpx;  /* 为状态标签留出底部空间 */
+  }
+  
+  /* 状态标签 - 移至左下角并调淡色调 */
+  .status-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 22rpx;
+    padding: 4rpx 12rpx;
+    border-radius: 6rpx;
+    margin-bottom: 8rpx;
+  }
+  
+  .status-confirmed {
+    background-color: rgba(26, 173, 25, 0.1);  /* 淡绿色 */
+    color: #1aad19;
+    border: 1px solid rgba(26, 173, 25, 0.2);
+  }
+  
+  .status-cancelled {
+    background-color: rgba(153, 153, 153, 0.1);  /* 淡灰色 */
+    color: #999;
+    border: 1px solid rgba(153, 153, 153, 0.2);
+  }
+  
+  /* 实验室名称 - 最重要 */
+  .lab-name {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20rpx;
+  }
+  
+  /* 预约时间 - 次重要 */
+  .booking-time {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    color: #666;
+    margin-bottom: 16rpx;
+  }
+  
+  .booking-time t-icon {
+    margin-right: 10rpx;
+  }
+  
+  /* 预约目的 - 详细信息 */
+  .booking-purpose {
+    display: flex;
+    align-items: center;
+    font-size: 26rpx;
+    color: #888;
+    margin-bottom: 24rpx;  /* 增大与状态标签的间距 */
+    word-break: break-all;
+  }
+  
+  .booking-purpose t-icon {
+    flex-shrink: 0;
+    margin-right: 10rpx;
+  }
+  
+  .card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16rpx 0 0;
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  /* 加载状态 */
+  .loading {
+    padding: 60rpx 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* 根据预约状态调整卡片样式 */
+  .booking-card.confirmed {
+    background-color: #ffffff;
+  }
+  
+  .booking-card.cancelled {
+    background-color: #f9f9f9;
+  }

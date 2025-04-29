@@ -10,6 +10,14 @@ Page({
     studentId: '',
     textPassword: '',
     loginurl: '',
+    showPassword: false
+  },
+
+  togglePasswordVisibility() {
+    // console.log('123');
+    this.setData({
+      showPassword: !this.data.showPassword
+    });
   },
 
   trylogin() {
@@ -45,11 +53,11 @@ Page({
       url: this.data.loginurl,
       method: 'POST',
       header: {
-        'content-type': 'application/json' // 指定请求体格式为 JSON
+        'content-type': 'application/json'
       },
       data: {
         userId: studentId,
-        userPassword: textPassword // 根据后端接口要求调整字段名，这里假设是 password
+        userPassword: textPassword 
       },
       success: (res) => {
         // console.log('登录请求成功:', res);
@@ -82,7 +90,6 @@ Page({
         });
       },
       complete: () => {
-        // 7. 隐藏加载提示
         wx.hideLoading();
       }
     });

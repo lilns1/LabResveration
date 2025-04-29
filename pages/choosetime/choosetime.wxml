@@ -1,4 +1,46 @@
+<!-- filepath: d:\LabReservation\pages\choosetime\choosetime.wxml -->
 <view class="container">
-  
-  
+  <view class="date-fixed-container">
+    <view 
+      wx:for="{{dateList}}" 
+      wx:key="dateStr"
+      wx:if="{{index < 5}}"
+      class="date-block {{item.dateStr === date ? 'selected' : ''}}"
+      data-date="{{item.dateStr}}"
+      bindtap="onDateChange">
+      <text class="day-name">{{item.dayName}}</text>
+      <text class="date-num">{{item.day}}</text>
+      <text class="month-text">{{item.month}}月</text>
+    </view>
+  </view>
+
+  <!-- 中间时间段列表 -->
+  <view class="time-slots-container">
+    <text class="section-title">可预约时间</text>
+    <view class="tips-text">请选择开始和结束时间</view>
+    <view class="time-slots">
+      <view 
+        wx:for="{{periods}}" 
+        wx:key="id"
+        class="time-slot {{!item.isAvailable ? 'unavailable' : ''}} {{item.id === startTimeId ? 'start-point' : ''}} {{item.id === endTimeId ? 'end-point' : ''}} {{(item.id > startTimeId && item.id < endTimeId) ? 'in-range' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="selectTimeSlot">
+        <text class="time-text">{{item.timeSlot}}</text>
+        <text class="status-text">{{item.isAvailable ? '可预约' : '已占用'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部预约表单 -->
+  <view class="reservation-form">
+    <text class="section-title">预约信息</text>
+    <view class="booking-info" wx:if="{{startTimeId !== null && endTimeId !== null}}">
+      <text class="booking-time">已选择: {{selectedTimeRange}}</text>
+    </view>
+    <view class="form-item">
+      <text class="form-label">预约目的：</text>
+      <input class="purpose-input" placeholder="请输入预约目的" value="{{purpose}}" bindinput="onPurposeInput" />
+    </view>
+    <button class="submit-btn {{!canSubmit ? 'disabled' : ''}}" disabled="{{!canSubmit}}" bindtap="submitReservation">确认预约</button>
+  </view>
 </view>

@@ -64,3 +64,27 @@ page {
 .button-item t-button {
    width: 100%;
 }
+
+.notice-container {
+  position: relative;
+  width: 100%;
+}
+
+.notice-close {
+  position: absolute;
+  top: 50%;
+  right: 20rpx;
+  transform: translateY(-50%);
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+.notice-close:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}

@@ -8,7 +8,12 @@
   <view class="form-section">
     <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" clearable />
     <t-input label="姓名" placeholder="请输入姓名" model:value="{{name}}" clearable />
-    <t-input label="密码" type="password" placeholder="请输入密码" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}" clearable/>
+    <t-input label="密码" 
+    type="{{showPassword ? 'text' : 'password'}}"
+    placeholder="请输入密码" model:value="{{textPassword}}" 
+    suffixIcon="{{ { name: showPassword ? 'browse' : 'browse-off', ariaLabel: '切换密码可见性' } }}" 
+    bind:click="togglePasswordVisibility"
+    clearable/>
     <t-input label="确认密码" type="password" placeholder="请再次输入密码" model:value="{{textPassword2}}" clearable />
   </view>
 

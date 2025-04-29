@@ -1,13 +1,13 @@
 {
   "pages": [
-    
     "pages/login/login",
     "pages/index/index",
     "pages/home/home",
     "pages/mybookingrecord/mybookingrecord",
     "pages/bookinglab/bookinglab",
     "pages/choosetime/choosetime",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/setting/setting"
   ],
   "window": {
     "navigationBarTextStyle": "black",

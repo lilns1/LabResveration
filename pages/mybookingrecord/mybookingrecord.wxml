@@ -1,2 +1,51 @@
-<!--pages/mybookingrecord/mybookingrecord.wxml-->
-<text>pages/mybookingrecord/mybookingrecord.wxml</text>
+<!-- filepath: d:\LabReservation\pages\mybookingrecord\mybookingrecord.wxml -->
+<view class="booking-records-container">
+  <view class="page-header">
+    <text class="header-title">我的预约记录</text>
+  </view>
+  
+  <view wx:if="{{userRecords.length === 0}}" class="empty-state">
+    <t-icon name="calendar" size="96rpx" color="#cccccc" />
+    <text>暂无预约记录</text>
+  </view>
+
+  <my-card 
+    wx:for="{{userRecords}}" 
+    wx:key="reservationId" 
+    class="booking-card {{item.reservationStatus == 'confirmed' ? 'confirmed' : 'cancelled'}}">
+    <view slot="content" class="card-content">
+      <block>
+        <view wx:if="{{item}}">
+          <view class="lab-name">{{lab[item.labId - 1].labName}}</view>
+          
+          <view class="booking-time">
+            <t-icon name="time" size="32rpx" color="#666666" />
+            <text>预约时间：{{item.reservationDate}} {{item.startTime}} - {{item.endTime}}</text>
+          </view>
+          
+          <view class="booking-purpose">
+            <t-icon name="edit" size="32rpx" color="#666666" />
+            <text>预约目的：{{item.purpose || '未填写预约目的'}}</text>
+          </view>
+          
+          <view class="status-badge {{item.reservationStatus == 'confirmed' ? 'status-confirmed' : 'status-cancelled'}}">
+            {{item.reservationStatus == "confirmed" ? "预约正常" : '已取消'}}
+          </view>
+        </view>
+        <view wx:else class="loading">
+          <t-loading theme="circular" size="80rpx" text="加载中..."></t-loading>
+        </view>
+      </block>
+    </view>
+    <view wx:if="{{item.reservationStatus == 'confirmed'}}" slot="actions" class="card-actions">
+      <t-button 
+        theme="danger" 
+        size="small" 
+        icon="close-circle" 
+        bind:tap="cancelreservation" 
+        data-reservationId="{{item.reservationId}}">
+        取消预约
+      </t-button>
+    </view>
+  </my-card>
+</view>

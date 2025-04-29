@@ -1,0 +1,86 @@
+<!--pages/setting/setting.wxml-->
+<!-- filepath: d:\LabReservation\pages\setting\setting.wxml -->
+<view class="settings-container">
+  <view class="section-title">个人设置</view>
+  
+  <!-- 个人信息设置 -->
+  <view class="settings-group">
+    <view class="settings-item" bindtap="navigateToProfile">
+      <view class="item-left">
+        <t-icon name="user" size="48rpx" color="#1aad19" />
+        <text class="item-text">个人信息</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToNotifications">
+      <view class="item-left">
+        <t-icon name="notification" size="48rpx" color="#1aad19" />
+        <text class="item-text">消息通知</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToPrivacy">
+      <view class="item-left">
+        <t-icon name="lock" size="48rpx" color="#1aad19" />
+        <text class="item-text">隐私设置</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
+  </view>
+  
+  <view class="section-title">通用设置</view>
+  
+  <!-- 通用设置 -->
+  <view class="settings-group">
+    <view class="settings-item">
+      <view class="item-left">
+        <t-icon name="image" size="48rpx" color="#1aad19" />
+        <text class="item-text">深色模式</text>
+      </view>
+      <t-switch value="{{darkMode}}" bind:change="toggleDarkMode" />
+    </view>
+    
+    <view class="settings-item">
+      <view class="item-left">
+        <t-icon name="sound" size="48rpx" color="#1aad19" />
+        <text class="item-text">通知声音</text>
+      </view>
+      <t-switch value="{{notificationSound}}" bind:change="toggleNotificationSound" />
+    </view>
+    
+    <view class="settings-item" bindtap="clearCache">
+      <view class="item-left">
+        <t-icon name="delete" size="48rpx" color="#1aad19" />
+        <text class="item-text">清除缓存</text>
+      </view>
+      <text class="cache-size">{{cacheSize}}</text>
+    </view>
+  </view>
+  
+  <view class="section-title">支持</view>
+  
+  <!-- 支持与帮助 -->
+  <view class="settings-group">
+    <view class="settings-item" bindtap="navigateToAbout">
+      <view class="item-left">
+        <t-icon name="help-circle" size="48rpx" color="#1aad19" />
+        <text class="item-text">关于我们</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
+    
+    <view class="settings-item" bindtap="navigateToFeedback">
+      <view class="item-left">
+        <t-icon name="chat" size="48rpx" color="#1aad19" />
+        <text class="item-text">意见反馈</text>
+      </view>
+      <t-icon name="chevron-right" size="40rpx" color="#cccccc" />
+    </view>
+    
+    <button class="logout-btn" bindtap="logout">退出登录</button>
+  </view>
+  
+  <view class="app-version">Version 1.0.0</view>
+</view>

@@ -11,7 +11,15 @@ Page({
     searchurl: ' ',
     reserArr: [],
     currentIndex: Number,
-    lab: []
+    lab: [],
+    showNotice: true
+  },
+  closeNotice() {
+    this.setData({
+      showNotice: false
+    });
+    
+    wx.setStorageSync('noticeHidden', true);
   },
   handletap(e) {
     console.log(e.currentTarget.dataset.tar);
@@ -57,6 +65,12 @@ Page({
         })
       }
     })
+    const noticeHidden = wx.getStorageSync('noticeHidden');
+    if (noticeHidden) {
+      this.setData({
+        showNotice: false
+      });
+    }
   },
 
   getmyfirstRecord() {

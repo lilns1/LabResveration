@@ -11,7 +11,15 @@ Page({
     name: '',
     textPassword: '',
     textPassword2: '',
-    registerurl: ''
+    registerurl: '',
+    showPassword: false
+  },
+
+  togglePasswordVisibility() {
+    this.setData({
+      showPassword: !this.data.showPassword
+    });
+    console.log(this.data.showPassword);
   },
 
   tryRegister() {
@@ -51,11 +59,16 @@ Page({
               delta: 1
             });
           }, 1000);
-        } else {
+        } else if (res.statusCode === 500) {
           wx.showToast({
-            title: res.data.msg,
+            title: '密码至少需要6位',
             icon: 'none'
           });
+        } else {
+          wx.showToast({
+            title: res.data.message,
+            icon: 'error'
+          })
         }
       },
       fail: (err) => {

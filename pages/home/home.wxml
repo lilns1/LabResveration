@@ -1,8 +1,39 @@
-<!--pages/home/home.wxml-->
-<t-avatar class="avatar-example" t-class-content="external-class-content">A</t-avatar>
-<t-row gutter="16">
-  <t-button>设置</t-button>
-</t-row>
-<t-row gutter="16">
-  <t-button>关于</t-button>
-</t-row>
+<!-- filepath: d:\LabReservation\pages\home\home.wxml -->
+<view class="home-container">
+  <!-- 顶部用户信息区 -->
+  <view class="user-profile-section">
+    <t-avatar 
+      class="user-avatar" 
+      size="large" 
+      t-class-content="avatar-content">
+      {{userinfo.userName ? userinfo.userName[0] : 'U'}}
+    </t-avatar>
+    <view class="user-info">
+      <text class="username">{{userinfo.userName}}</text>
+      <text class="user-role">{{userinfo.userId}}</text>
+    </view>
+  </view>
+  
+  <!-- 操作卡片区 -->
+  <view class="action-cards">
+    <!-- 这里是其他卡片内容 -->
+  </view>
+  
+  <!-- 底部工具栏 - 设置和关于按钮 -->
+  <view class="bottom-toolbar">
+    <t-button 
+      icon="setting" 
+     
+      class="toolbar-btn"
+      bindtap="navigateToSetting">
+      设置
+    </t-button>
+    
+    <t-button 
+      icon="help-circle" 
+      class="toolbar-btn"
+      bindtap="showAbout">
+      关于
+    </t-button>
+  </view>
+</view>

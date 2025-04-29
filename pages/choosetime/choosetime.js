@@ -10,9 +10,14 @@ Page({
     date: null,
     periods: [],
     resRecords: [],
-    selectPeriod: null,
+    startTimeId: null,  // 新增：起始时间ID
+    endTimeId: null,    // 新增：结束时间ID
+    selectedTimeRange: "", // 新增：显示已选择的时间范围
     searchurl: '',
-    timeToIndex: {}
+    timeToIndex: {},
+    dateList: [],  // 用于存储日期选择列表
+    purpose: '',   // 预约目的
+    canSubmit: false // 是否可以提交  
   },
 
   onLoad(options) {
@@ -33,19 +38,44 @@ Page({
 
     const opentime = options.labopentime;
     const closetime = options.labendtime;
-    const [openHours, openMinutes] = opentime.split(':').map(Number);
-    const [closeHours, closeMinutes] = closetime.split(':').map(Number);
     this.setData({
-      labopentime: openHours * 60 + openMinutes,
-      labclosetime: closeHours * 60 + closeMinutes
+      labopentime: this.timeToMinute(opentime),
+      labclosetime: this.timeToMinute(closetime)
     });
     // console.log(this.data);
+    this.generateDateList();
     this.prepareTime();
     this.getReservationsRecords();
   },
 
-  prepareTime() {
+  // 生成日期列表方法
+  generateDateList() {
+    const dayNames = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+    const dateList = [];
+    const today = new Date();
+    
+    for (let i = 0; i < 5; i++) {  // 只生成5天
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const dayName = i === 0 ? '今天' : dayNames[date.getDay()];
+      const dateStr = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      
+      dateList.push({
+        dateStr,
+        year,
+        month,
+        day,
+        dayName
+      });
+    }
+    
+    this.setData({ dateList });
+  },
 
+  prepareTime() {
     let currenttime = this.data.labopentime;
     const closetime = this.data.labclosetime;
     const periods = [];
@@ -69,15 +99,18 @@ Page({
         timeSlot: `${startTime}-${endTime}`,
         isAvailable: true
       });
-      timeToIndexMap[startTime] = index;
+      timeToIndexMap[this.timeToMinute(startTime)] = index;
       index++;
       currenttime = nexttime;
     }
     this.setData({
       periods: periods,
-      timeToIndex: timeToIndexMap
+      timeToIndex: timeToIndexMap,
+      startTimeId: null,
+      endTimeId: null,
+      selectedTimeRange: "",
+      canSubmit: false
     });
-    // console.log(periods);
   },
 
   getReservationsRecords() {
@@ -87,12 +120,10 @@ Page({
       url: url,
       method: 'GET',
       success: (res) => {
-        // console.log(res);
         if (res.statusCode === 200 && res.data.code === 200) {
           this.setData({
             resRecords: res.data.data
           });
-          // console.log(this.data.resRecords);
           this.processReservationRecords();
         } else {
           wx.showToast({
@@ -102,7 +133,6 @@ Page({
         }
       },
       fail: (res) => {
-        console.log('123', res);
         wx.showToast({
           title: '网络异常，无法获得预约数据',
           icon: 'none'
@@ -112,27 +142,219 @@ Page({
   },
 
   processReservationRecords() {
-    const {labopentime, labclosetime, resRecords, periods} = this.data;
-    // console.log(resRecords);
-    const today = new Date();
-    const currentTime = today.getHours() * 60 + today.getMinutes();
+    const { resRecords, periods } = this.data;
+    console.log("处理预约记录:", resRecords.length);
+    
     const timeToIndexMap = this.data.timeToIndex;
-    console.log(periods);
+    
     for (let i = 0; i < resRecords.length; i++) {
       const record = resRecords[i];
       if (record.reservationStatus != 'confirmed') continue;
-      const [endHours, endMinutes] = record.endTime.split(':').map(Number);
-      const [startHours, startMinutes] = record.startTime.split(':').map(Number);
-      const endTime = endHours * 60 + endMinutes;
-      let startTime = startHours * 60 + startMinutes;
-      // while (startTime < endTime) {
-      //   if (startTime + 30 > currentTime) {
-      //     const index = timeToIndexMap[startTime];
-          
-      //   }
-      // }
+      
+      const endTime = this.timeToMinute(record.endTime);
+      const startTime = this.timeToMinute(record.startTime);
+      let indexTime = startTime;
+      
+      while (indexTime < endTime) { 
+        const index = timeToIndexMap[indexTime];
+        if (index !== undefined) {
+          periods[index].isAvailable = false;
+          // console.log(`设置已预约时段: ${periods[index].timeSlot} 为不可用`);
+        }
+        indexTime += 30;
+      }
+    }
+    
+    const today = new Date();
+    const selectedDate = new Date(this.data.date);
+    const isToday = selectedDate.toDateString() === today.toDateString();
+    
+    console.log("当前日期:", today.toDateString());
+    console.log("选择日期:", selectedDate.toDateString());
+    console.log("是否为今天:", isToday);
+    
+    if (isToday) {
+      const currentTime = today.getHours() * 60 + today.getMinutes();
+      console.log("当前时间(分钟):", currentTime);
+      
+      for (let i = 0; i < periods.length; i++) {
+        const endtime = this.timeToMinute(periods[i].end);
+        if (endtime <= currentTime) {
+          periods[i].isAvailable = false;
+          // console.log(`设置过期时段: ${periods[i].timeSlot} 为不可用`);
+        }
+      }
+    }
+    this.setData({
+      periods: periods
+    });
+  },
+  
+  onDateChange(e) {
+    const selectedDate = e.currentTarget.dataset.date;
+    if (selectedDate === this.data.date) return;
+    
+    this.setData({
+      date: selectedDate,
+      startTimeId: null,
+      endTimeId: null,
+      selectedTimeRange: "",
+      purpose: '',
+      canSubmit: false
+    });
+    
+    this.prepareTime();
+    this.getReservationsRecords();
+  },
+
+  // 修改为实现起点和终点选择的逻辑
+  selectTimeSlot(e) {
+    const id = parseInt(e.currentTarget.dataset.id);
+    const period = this.data.periods.find(p => p.id === id);
+    
+    if (!period || !period.isAvailable) {
+      wx.showToast({
+        title: '该时间段不可选',
+        icon: 'none'
+      });
+      return;
+    }
+    if (this.data.startTimeId === null || 
+        (this.data.startTimeId !== null && this.data.endTimeId !== null)) {
+      this.setData({
+        startTimeId: id,
+        endTimeId: null,
+        selectedTimeRange: "",
+        canSubmit: false
+      });
+      return;
+    }
+    
+    if (this.data.startTimeId !== null && this.data.endTimeId === null) {
+      if (id === this.data.startTimeId) {
+        this.setData({
+          startTimeId: null,
+          canSubmit: false,
+          selectedTimeRange: ""
+        });
+        return;
+      }
+      
+      if (id < this.data.startTimeId) {
+        this.setData({
+          endTimeId: this.data.startTimeId,
+          startTimeId: id
+        });
+      } else {
+        this.setData({
+          endTimeId: id
+        });
+      }
+      
+      if (!this.checkTimeRangeAvailability()) {
+        wx.showToast({
+          title: '所选时间段中有不可用时间',
+          icon: 'none'
+        });
+        this.setData({
+          endTimeId: null,
+          canSubmit: false,
+          selectedTimeRange: ""
+        });
+        return;
+      }
+      
+      const startPeriod = this.data.periods.find(p => p.id === this.data.startTimeId);
+      const endPeriod = this.data.periods.find(p => p.id === this.data.endTimeId);
+      if (startPeriod && endPeriod) {
+        const selectedTimeRange = `${startPeriod.start}-${endPeriod.end}`;
+        this.setData({
+          selectedTimeRange,
+          canSubmit: !!this.data.purpose
+        });
+      }
     }
   },
+
+  checkTimeRangeAvailability() {
+    const startId = this.data.startTimeId;
+    const endId = this.data.endTimeId;
+    
+    for (let i = startId; i <= endId; i++) {
+      const period = this.data.periods.find(p => p.id === i);
+      if (!period || !period.isAvailable) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  onPurposeInput(e) {
+    const purpose = e.detail.value;
+    this.setData({
+      purpose,
+      canSubmit: purpose && this.data.startTimeId !== null && this.data.endTimeId !== null
+    });
+  },
+
+  submitReservation() {
+    if (!this.data.canSubmit) return;
+    
+    const startPeriod = this.data.periods.find(p => p.id === this.data.startTimeId);
+    const endPeriod = this.data.periods.find(p => p.id === this.data.endTimeId);
+    
+    if (!startPeriod || !endPeriod) return;
+    
+    wx.showLoading({ title: '提交中...' });
+
+    const postdata = {
+      userId: app.globalData.userid, 
+      labId: parseInt(this.data.labId),
+      reservationDate: this.data.date, 
+      startTime: startPeriod.start + ":00", 
+      endTime: endPeriod.end + ":00", 
+      purpose: this.data.purpose
+    };
+    console.log(postdata);
+    
+    wx.request({
+      url: app.globalData.apiurl + 'reservation',
+      method: 'POST',
+      data: postdata,
+      success: (res) => {
+        console.log(res);
+        wx.hideLoading();
+        if (res.statusCode === 200 && res.data.code === 200) {
+          wx.showToast({
+            title: '预约成功',
+            icon: 'success'
+          });
+          setTimeout(() => {
+            wx.navigateBack();
+          }, 1500);
+        } else {
+          wx.showToast({
+            title: res.data.message || '预约失败',
+            icon: 'error'
+          });
+        }
+      },
+      fail: () => {
+        wx.hideLoading();
+        wx.showToast({
+          title: '网络错误，请重试',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  timeToMinute(timeString) {
+    if (!timeString) return 0;
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return hours * 60 + minutes;
+  },
+
   onReady() {},
   onShow() {},
   onHide() {},

@@ -1,31 +1,36 @@
-// pages/home/home.js
+// 获取应用实例
+const app = getApp()
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    userinfo: {}
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  
+  onLoad() {
+    let url = app.globalData.apiurl + 'user/' + app.globalData.userid;
+    // console.log(url);
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: (res) => {
+        // console.log(res);
+        this.setData({
+          userinfo: res.data.data
+        });
+        console.log(this.data.userinfo);
+      },
+      fail: (err) => {
+        console.log(err);
+        wx.showToast({
+          title: '网络异常，无法获得个人信息',
+          icon: 'error'
+        })
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
+  
   onShow() {
+    // 每次页面显示时获取最新用户信息
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       const page = getCurrentPages().pop();
       this.getTabBar().setData({
@@ -33,40 +38,21 @@ Page({
       });
     }
   },
+
   
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  // 点击设置按钮跳转到设置页面
+  navigateToSetting() {
+    wx.navigateTo({
+      url: '/pages/setting/setting'
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  
+  // 点击关于按钮
+  showAbout() {
+    wx.showModal({
+      title: '关于实验室预约系统',
+      content: '版本号：1.0.0\n开发者：实验室预约系统开发团队\n联系方式：contact@example.com',
+      showCancel: false
+    });
   }
 })
