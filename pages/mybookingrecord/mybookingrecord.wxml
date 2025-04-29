@@ -12,12 +12,10 @@
   <my-card 
     wx:for="{{userRecords}}" 
     wx:key="reservationId" 
-    class="booking-card {{item.reservationStatus == 'confirmed' ? 'confirmed' : 'cancelled'}}">
+    class="booking-card" title="{{lab[item.labId - 1].labName}}">
     <view slot="content" class="card-content">
       <block>
-        <view wx:if="{{item}}">
-          <view class="lab-name">{{lab[item.labId - 1].labName}}</view>
-          
+        <view wx:if="{{item}}">          
           <view class="booking-time">
             <t-icon name="time" size="32rpx" color="#666666" />
             <text>预约时间：{{item.reservationDate}} {{item.startTime}} - {{item.endTime}}</text>
@@ -28,8 +26,8 @@
             <text>预约目的：{{item.purpose || '未填写预约目的'}}</text>
           </view>
           
-          <view class="status-badge {{item.reservationStatus == 'confirmed' ? 'status-confirmed' : 'status-cancelled'}}">
-            {{item.reservationStatus == "confirmed" ? "预约正常" : '已取消'}}
+          <view class="status-badge {{item.reservationStatus == 'confirmed' ? 'status-confirmed' : (item.reservationStatus == 'completed' ? 'status-completed' : 'status-cancelled')}}">
+            {{item.reservationStatus == "confirmed" ? "预约正常" : (item.reservationStatus == "completed" ? "已完成" : "已取消")}}
           </view>
         </view>
         <view wx:else class="loading">

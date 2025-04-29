@@ -30,7 +30,7 @@
 
       <view slot="actions">
         <t-button class="select-btn" theme="primary" size="small" bind:tap="selectLab" 
-        data-labid="{{item.labId}}" data-labopentime="{{item.labOpentime}}" data-labendtime="{{item.labClosetime}}">
+        data-labid="{{item.labId}}" data-labopentime="{{item.labOpentime}}" data-labendtime="{{item.labClosetime}}" data-labcapacity="{{item.labCapacity}}">
           选择此实验室
         </t-button>
       </view>

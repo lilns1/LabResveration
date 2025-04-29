@@ -13,7 +13,7 @@
   </view>
 </view>
 
-<view class="section-wrapper">
+<view>
   <my-card title="当前预约">
     <view slot="content">
       <block wx:if="{{currentIndex === -1}}">

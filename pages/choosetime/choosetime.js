@@ -5,6 +5,7 @@ const app = getApp();
 Page({
   data: {
     labId: null,
+    labCapacity: null,
     labopentime: null,
     labclosetime: null,
     date: null,
@@ -24,7 +25,8 @@ Page({
     // console.log(options);
     this.setData({
       labId: options.labId,
-      searchurl: app.globalData.apiurl + 'reservation/lab/' + options.labId + '/'
+      searchurl: app.globalData.apiurl + 'reservation/lab/' + options.labId + '/',
+      labCapacity: options.labcapacity
     });
     const today = new Date();
     const year = today.getFullYear();
@@ -97,7 +99,8 @@ Page({
         start: startTime,
         end: endTime,
         timeSlot: `${startTime}-${endTime}`,
-        isAvailable: true
+        capacity: this.data.labCapacity,
+        isAvailable: true // 默认可用
       });
       timeToIndexMap[this.timeToMinute(startTime)] = index;
       index++;
@@ -149,7 +152,7 @@ Page({
     
     for (let i = 0; i < resRecords.length; i++) {
       const record = resRecords[i];
-      if (record.reservationStatus != 'confirmed') continue;
+      if (record.reservationStatus !== 'confirmed') continue;
       
       const endTime = this.timeToMinute(record.endTime);
       const startTime = this.timeToMinute(record.startTime);
@@ -158,7 +161,10 @@ Page({
       while (indexTime < endTime) { 
         const index = timeToIndexMap[indexTime];
         if (index !== undefined) {
-          periods[index].isAvailable = false;
+          periods[index].capacity --;
+          if (periods[index].capacity <= 0) {
+            periods[index].isAvailable = false; // 设置为不可用
+          }
           // console.log(`设置已预约时段: ${periods[index].timeSlot} 为不可用`);
         }
         indexTime += 30;
@@ -220,20 +226,19 @@ Page({
       return;
     }
     if (this.data.startTimeId === null || 
-        (this.data.startTimeId !== null && this.data.endTimeId !== null)) {
+        (this.data.startTimeId !== null && this.data.endTimeId !== this.data.startTimeId)) {
       this.setData({
         startTimeId: id,
-        endTimeId: null,
+        endTimeId: id,
         selectedTimeRange: "",
-        canSubmit: false
       });
-      return;
     }
     
-    if (this.data.startTimeId !== null && this.data.endTimeId === null) {
+    else if (this.data.startTimeId !== null && this.data.endTimeId === this.data.startTimeId) {
       if (id === this.data.startTimeId) {
         this.setData({
           startTimeId: null,
+          endTimeId: null,
           canSubmit: false,
           selectedTimeRange: ""
         });
@@ -251,29 +256,31 @@ Page({
         });
       }
       
-      if (!this.checkTimeRangeAvailability()) {
-        wx.showToast({
-          title: '所选时间段中有不可用时间',
-          icon: 'none'
-        });
-        this.setData({
-          endTimeId: null,
-          canSubmit: false,
-          selectedTimeRange: ""
-        });
-        return;
-      }
-      
-      const startPeriod = this.data.periods.find(p => p.id === this.data.startTimeId);
-      const endPeriod = this.data.periods.find(p => p.id === this.data.endTimeId);
-      if (startPeriod && endPeriod) {
-        const selectedTimeRange = `${startPeriod.start}-${endPeriod.end}`;
-        this.setData({
-          selectedTimeRange,
-          canSubmit: !!this.data.purpose
-        });
-      }
+    }  
+    if (!this.checkTimeRangeAvailability()) {
+      wx.showToast({
+        title: '所选时间段中有不可用时间',
+        icon: 'none'
+      });
+      this.setData({
+        startTimeId: null,
+        endTimeId: null,
+        canSubmit: false,
+        selectedTimeRange: ""
+      });
+      return;
     }
+
+    const startPeriod = this.data.periods.find(p => p.id === this.data.startTimeId);
+    const endPeriod = this.data.periods.find(p => p.id === this.data.endTimeId);
+    if (startPeriod && endPeriod) {
+      const selectedTimeRange = `${startPeriod.start}-${endPeriod.end}`;
+      this.setData({
+        selectedTimeRange,
+        canSubmit: !!this.data.purpose
+      });
+    }
+    
   },
 
   checkTimeRangeAvailability() {
@@ -329,9 +336,9 @@ Page({
             title: '预约成功',
             icon: 'success'
           });
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1500);
+          wx.redirectTo({
+            url: '/pages/mybookingrecord/mybookingrecord',
+          })
         } else {
           wx.showToast({
             title: res.data.message || '预约失败',

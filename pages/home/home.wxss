@@ -141,5 +141,6 @@
   margin: 15rpx 0 !important; /* 上下间距15rpx，左右不设置 */
   justify-content: flex-start !important; /* 按钮内容靠左对齐 */
   padding: 0 30rpx !important;
-  background-color: rgb(0, 6, 87);
+  background-color: #ffffff;
+  color: #000000;
 }

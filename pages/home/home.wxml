@@ -3,7 +3,6 @@
   <!-- 顶部用户信息区 -->
   <view class="user-profile-section">
     <t-avatar 
-      class="user-avatar" 
       size="large" 
       t-class-content="avatar-content">
       {{userinfo.userName ? userinfo.userName[0] : 'U'}}
@@ -14,17 +13,12 @@
     </view>
   </view>
   
-  <!-- 操作卡片区 -->
-  <view class="action-cards">
-    <!-- 这里是其他卡片内容 -->
-  </view>
-  
   <!-- 底部工具栏 - 设置和关于按钮 -->
   <view class="bottom-toolbar">
     <t-button 
       icon="setting" 
-     
       class="toolbar-btn"
+      theme="light"
       bindtap="navigateToSetting">
       设置
     </t-button>

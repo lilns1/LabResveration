@@ -19,7 +19,6 @@ Page({
       showNotice: false
     });
     
-    wx.setStorageSync('noticeHidden', true);
   },
   handletap(e) {
     console.log(e.currentTarget.dataset.tar);
@@ -40,37 +39,7 @@ Page({
       searchurl: app.globalData.apiurl + 'reservation/user/' + app.globalData.userid
     })
     // console.log(this.data.searchurl);
-    wx.request({
-      url: this.data.searchurl,
-      method: 'GET',
-      success: (res) => {
-        // console.log(res);
-        if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
-          this.setData({
-            reserArr: res.data.data
-          })
-          // console.log(123);
-          this.getmyfirstRecord();
-        } else {
-          this.setData({
-            currentIndex: -1
-          });
-        }
-      },
-      fail: (res) => {
-        console.log(res);
-        wx.showToast({
-          title: '获取数据异常',
-          icon: 'error'
-        })
-      }
-    })
-    const noticeHidden = wx.getStorageSync('noticeHidden');
-    if (noticeHidden) {
-      this.setData({
-        showNotice: false
-      });
-    }
+    
   },
 
   getmyfirstRecord() {
@@ -117,6 +86,31 @@ Page({
         value: '/' + page.route
       });
     }
+    wx.request({
+      url: this.data.searchurl,
+      method: 'GET',
+      success: (res) => {
+        // console.log(res);
+        if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
+          this.setData({
+            reserArr: res.data.data
+          })
+          // console.log(123);
+          this.getmyfirstRecord();
+        } else {
+          this.setData({
+            currentIndex: -1
+          });
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+        wx.showToast({
+          title: '获取数据异常',
+          icon: 'error'
+        })
+      }
+    })
   },
 
   /**

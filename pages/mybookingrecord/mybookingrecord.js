@@ -24,7 +24,7 @@ Page({
       userid: app.globalData.userid,
     })
     let url = app.globalData.apiurl + 'reservation/user/' + app.globalData.userid;
-    console.log(url);
+    // console.log(url);
     wx.request({
       url: url,
       method: 'GET',
@@ -34,7 +34,8 @@ Page({
           this.setData({
             userRecords: res.data.data.reverse()
           })
-          console.log(this.data.userRecords);
+          // console.log(this.data.userRecords);
+          this.dealCurrentTime();
         } 
       },
       fail: (res) => {
@@ -45,6 +46,40 @@ Page({
         })
       }
     })
+  },
+
+  dealCurrentTime() {
+    const now = new Date();
+    const { userRecords } = this.data;
+    const updatedRecords = [...userRecords];
+    
+    for (let i = 0; i < updatedRecords.length; i++) {
+      const record = updatedRecords[i];
+      if (record.reservationStatus === "confirmed") {
+        const reservationDateParts = record.reservationDate.split("-");
+        const endTimeParts = record.endTime.split(":");
+        
+        const reservationEndTime = new Date(
+          parseInt(reservationDateParts[0]),
+          parseInt(reservationDateParts[1]) - 1,
+          parseInt(reservationDateParts[2]),
+          parseInt(endTimeParts[0]),
+          parseInt(endTimeParts[1]),
+          parseInt(endTimeParts[2] || 0)
+        );
+        if (reservationEndTime < now) {
+          updatedRecords[i] = {
+            ...record,
+            reservationStatus: "completed"
+          };
+        }
+      }
+    }
+    if (JSON.stringify(updatedRecords) !== JSON.stringify(userRecords)) {
+      this.setData({
+        userRecords: updatedRecords
+      });
+    }
   },
 
   cancelreservation(e) {
@@ -58,8 +93,11 @@ Page({
         // console.log(res);
         if (res.statusCode === 200) {
           wx.showToast({
-            title: '预约成功',
+            title: '取消成功',
             icon: 'success'
+          })
+          wx.redirectTo({
+            url: '/pages/mybookingrecord/mybookingrecord',
           })
         } else {
           wx.showToast({

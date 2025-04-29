@@ -12,8 +12,9 @@ Page({
   selectLab(e) {
     // console.log(e);
     const labset = e.currentTarget.dataset;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/choosetime/choosetime?labId=' + labset.labid + '&labopentime=' + labset.labopentime + '&labendtime=' + labset.labendtime
+      + '&labcapacity=' + labset.labcapacity
     });
   },
 

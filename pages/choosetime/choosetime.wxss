@@ -78,7 +78,7 @@
 }
 
 .time-slot {
-  width: 165rpx; /* 一行显示4个 */
+  width: 160rpx; /* 一行显示4个 */
   height: 110rpx;
   margin: 8rpx;
   border-radius: 12rpx;
