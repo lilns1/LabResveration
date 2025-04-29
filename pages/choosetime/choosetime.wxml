@@ -1,36 +1,4 @@
 <view class="container">
   
-  <!-- 中间时间段选择 -->
-  <view class="time-slots-container">
-    <view wx:if="{{availableTimes.length > 0}}" class="time-slots">
-      <block wx:for="{{availableTimes}}" wx:key="id">
-        <view
-          class="time-slot {{item.id === selectedTimeSlotId ? 'selected' : ''}} {{item.available ? '' : 'disabled'}}"
-          bindtap="selectTimeSlot"
-          data-id="{{item.id}}"
-          data-time="{{item.timeRange}}"
-          data-available="{{item.available}}"
-        >
-          {{item.timeRange}} ({{item.available ? '可选' : '已预约'}})
-        </view>
-      </block>
-    </view>
-    <view wx:else class="no-slots">
-      该日期暂无可选时间段
-    </view>
-  </view>
-
-  <!-- 底部预约信息 -->
-  <view class="booking-info">
-    <textarea
-      class="purpose-input"
-      placeholder="请输入预约目的"
-      value="{{purpose}}"
-      bindinput="bindPurposeInput"
-      maxlength="100"
-    ></textarea>
-    <button class="submit-button" type="primary" bindtap="submitBooking" disabled="{{!selectedTimeSlotId || !purpose}}">
-      确认预约
-    </button>
-  </view>
+  
 </view>

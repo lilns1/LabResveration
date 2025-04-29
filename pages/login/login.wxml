@@ -1,12 +1,17 @@
 <!--pages/login/login.wxml-->
 <view class="page-container">
+  <view class="title-section">
+    <text class="title">实验室预约系统</text>
+    <text class="subtitle">欢迎登录</text>
+  </view>
+
   <view class="form-section">
-    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
-    <t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
+    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" clearable />
+    <t-input label="密码" type="password" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}" clearable/>
   </view>
 
   <view class="button-section">
-    <t-button class="login-button" theme="primary" bind:tap="trylogin">登录</t-button>
+    <t-button class="login-button" theme="primary" size="large" bind:tap="trylogin">登 录</t-button>
     <navigator class="register-navigator" url="/pages/register/register" hover-class="navigator-hover">没有账号？点击注册</navigator>
   </view>
 </view>

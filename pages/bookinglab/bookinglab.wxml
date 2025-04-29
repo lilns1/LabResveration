@@ -29,7 +29,8 @@
       </view>
 
       <view slot="actions">
-        <t-button theme="primary" size="small" bind:tap="selectLab" data-lab="{{item.labId}}" class="select-btn">
+        <t-button class="select-btn" theme="primary" size="small" bind:tap="selectLab" 
+        data-labid="{{item.labId}}" data-labopentime="{{item.labOpentime}}" data-labendtime="{{item.labClosetime}}">
           选择此实验室
         </t-button>
       </view>

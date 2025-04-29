@@ -1,14 +1,19 @@
 <!--pages/register/register.wxml-->
 <view class="page-container">
+  <view class="title-section">
+    <text class="title">实验室预约系统</text>
+    <text class="subtitle">新用户注册</text>
+  </view>
+
   <view class="form-section">
-    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" />
-    <t-input label="姓名" placeholder="请输入姓名" model:value="{{name}}" />
-    <t-input label="密码" type="password" placeholder="请输入密码" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}"/>
-    <t-input label="确认密码" type="password" placeholder="请再次输入密码" model:value="{{textPassword2}}" />
+    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" clearable />
+    <t-input label="姓名" placeholder="请输入姓名" model:value="{{name}}" clearable />
+    <t-input label="密码" type="password" placeholder="请输入密码" model:value="{{textPassword}}" suffixIcon="{{ { name: 'browse-off', ariaLabel: '密码' } }}" clearable/>
+    <t-input label="确认密码" type="password" placeholder="请再次输入密码" model:value="{{textPassword2}}" clearable />
   </view>
 
   <view class="button-section">
-    <t-button class="register-button" theme="primary" bind:tap="tryRegister">注册</t-button>
+    <t-button class="register-button" theme="primary" size="large" bind:tap="tryRegister">注 册</t-button>
     <navigator class="login-navigator" url="/pages/login/login" hover-class="navigator-hover">已有账号？点击登录</navigator>
   </view>
 </view>

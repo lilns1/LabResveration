@@ -11,10 +11,10 @@ Page({
   },
   selectLab(e) {
     // console.log(e);
-    const labId = e.currentTarget.dataset.lab;
+    const labset = e.currentTarget.dataset;
     wx.navigateTo({
-      url: '/pages/choosetime/choosetime?labId=' + labId
-    })
+      url: '/pages/choosetime/choosetime?labId=' + labset.labid + '&labopentime=' + labset.labopentime + '&labendtime=' + labset.labendtime
+    });
   },
 
   /**
