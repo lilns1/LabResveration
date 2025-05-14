@@ -73,7 +73,7 @@ page {
 .notice-close {
   position: absolute;
   top: 50%;
-  right: 20rpx;
+  right: 30rpx;
   transform: translateY(-50%);
   width: 48rpx;
   height: 48rpx;

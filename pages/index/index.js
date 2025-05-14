@@ -90,10 +90,10 @@ Page({
       url: this.data.searchurl,
       method: 'GET',
       success: (res) => {
-        // console.log(res);
+        console.log(res);
         if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
           this.setData({
-            reserArr: res.data.data
+            reserArr: res.data.data.reverse()
           })
           // console.log(123);
           this.getmyfirstRecord();

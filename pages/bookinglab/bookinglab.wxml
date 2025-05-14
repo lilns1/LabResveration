@@ -14,7 +14,7 @@
           </view>
           <view class="lab-item">
             <text class="label">位置:</text>
-            <text class="value">{{item.location || '暂无位置信息'}}</text>
+            <text class="value">{{item.labLocation || '暂无位置信息'}}</text>
           </view>
           <view class="lab-item">
             <text class="label">容量:</text>

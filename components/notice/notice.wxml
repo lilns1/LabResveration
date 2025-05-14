@@ -2,6 +2,6 @@
 <t-notice-bar
   visible="{{visible}}"
   suffixIcon="close"
-  content="这是一条普通的通知信息"
+  content="软件实训室部分电脑无法联网，正在排查中"
   bind:click="click"
 ></t-notice-bar>

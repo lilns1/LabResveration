@@ -1,20 +1,20 @@
 // components/swiper/swiper.js
-const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
+const imageCdn = '/image';
 const swiperList = [
   {
-    value: `${imageCdn}/swiper1.png`,
+    value: `${imageCdn}/1.png`,
     ariaLabel: '图片1',
   },
   {
-    value: `${imageCdn}/swiper2.png`,
+    value: `${imageCdn}/2.png`,
     ariaLabel: '图片2',
   },
   {
-    value: `${imageCdn}/swiper1.png`,
+    value: `${imageCdn}/1.png`,
     ariaLabel: '图片1',
   },
   {
-    value: `${imageCdn}/swiper2.png`,
+    value: `${imageCdn}/2.png`,
     ariaLabel: '图片2',
   },
 ];

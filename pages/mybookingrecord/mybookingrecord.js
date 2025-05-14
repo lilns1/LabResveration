@@ -32,7 +32,7 @@ Page({
         // console.log(res);
         if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
           this.setData({
-            userRecords: res.data.data.reverse()
+            userRecords: res.data.data
           })
           // console.log(this.data.userRecords);
           this.dealCurrentTime();

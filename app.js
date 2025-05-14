@@ -22,7 +22,7 @@ App({
   },
   globalData: {
     userid: '231170020073',
-    apiurl: 'http://your_url:8080/',
+    apiurl: 'http://8.148.69.111:8080/',
     lab: [],
     username: ''
   }
