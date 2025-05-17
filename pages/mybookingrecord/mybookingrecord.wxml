@@ -26,8 +26,9 @@
             <text>预约目的：{{item.purpose || '未填写预约目的'}}</text>
           </view>
           
-          <view class="status-badge {{item.reservationStatus == 'confirmed' ? 'status-confirmed' : (item.reservationStatus == 'completed' ? 'status-completed' : 'status-cancelled')}}">
-            {{item.reservationStatus == "confirmed" ? "预约正常" : (item.reservationStatus == "completed" ? "已完成" : "已取消")}}
+          <view class="status-badge {{item.reservationStatus == 'confirmed' ? 'status-confirmed' : (item.reservationStatus == 'completed' ? 'status-completed' : (item.reservationStatus == 'pending' ? 'status-pending' : 'status-cancelled'))}}">
+            {{item.reservationStatus == "confirmed" ? "预约正常" : 
+            (item.reservationStatus == "completed" ? "已完成" : (item.reservationStatus == "pending" ? "审核中" : "已取消"))}}
           </view>
         </view>
         <view wx:else class="loading">
@@ -35,7 +36,7 @@
         </view>
       </block>
     </view>
-    <view wx:if="{{item.reservationStatus == 'confirmed'}}" slot="actions" class="card-actions">
+    <view wx:if="{{item.reservationStatus == 'confirmed' || item.reservationStatus == 'pending'}}" slot="actions" class="card-actions">
       <t-button 
         theme="danger" 
         size="small" 

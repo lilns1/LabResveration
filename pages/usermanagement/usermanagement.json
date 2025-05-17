@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "my-card": "/components/my-card/my-card",
+    "t-popup": "tdesign-miniprogram/popup/popup"
+  }
+}

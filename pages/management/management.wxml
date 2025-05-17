@@ -1,0 +1,58 @@
+<!--pages/management/management.wxml-->
+<view class="section-wrapper">
+  <view class="page-header">
+    <text class="header-title">管理中心</text>
+  </view>
+</view>
+
+<view class="section-wrapper">
+  <view class="admin-grid">
+    <view class="grid-item" bindtap="navigateTo" data-path="/pages/usermanagement/usermanagement">
+      <view class="icon-wrapper">
+        <t-icon name="user" size="80rpx" color="#0052d9"></t-icon>
+      </view>
+      <text class="grid-text">用户管理</text>
+    </view>
+    
+    <view class="grid-item" bindtap="navigateTo" data-path="/pages/reservationmanagement/reservationmanagement">
+      <view class="icon-wrapper">
+        <!-- 使用 TDesign 确认支持的图标 -->
+        <t-icon name="calendar" size="80rpx" color="#0052d9"></t-icon>
+      </view>
+      <text class="grid-text">预约记录管理</text>
+    </view>
+    
+    <view class="grid-item" bindtap="navigateTo" data-path="/pages/noticemanagement/noticemanagement">
+      <view class="icon-wrapper">
+        <t-icon name="notification" size="80rpx" color="#0052d9"></t-icon>
+      </view>
+      <text class="grid-text">公告管理</text>
+    </view>
+    
+    <view class="grid-item" bindtap="navigateTo" data-path="/pages/labmanagement/labmanagement">
+      <view class="icon-wrapper">
+        <t-icon name="desktop" size="80rpx" color="#0052d9"></t-icon>
+      </view>
+      <text class="grid-text">实验室管理</text>
+    </view>
+  </view>
+</view>
+
+<view class="section-wrapper">
+  <my-card title="系统概况">
+    <view slot="content" class="statistics">
+      <view class="stat-item">
+        <text class="stat-value">{{userCount}}</text>
+        <text class="stat-label">注册用户</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{pendingCount}}</text>
+        <text class="stat-label">待审核预约</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{labCount}}</text>
+        <text class="stat-label">实验室</text>
+      </view>
+    </view>
+  </my-card>
+</view>

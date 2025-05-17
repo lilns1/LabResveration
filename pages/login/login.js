@@ -69,11 +69,18 @@ Page({
           });
           app.globalData.username = res.data.data.userName;
           app.globalData.userid = studentId; 
+          app.globalData.userrole = res.data.data.userRole;
           // console.log("name", app.globalData.username);
 
-          wx.switchTab({
-            url: '/pages/index/index'
-          })
+          if (app.globalData.userrole == 'user') {
+            wx.switchTab({
+              url: '/pages/index/index'
+            })
+          } else {
+            wx.navigateTo({
+              url: '/pages/management/management',
+            })
+          }
         } else {
           // console.log(123);
           const errMsg = res.data && res.data.message ? res.data.message : '学号或密码错误';

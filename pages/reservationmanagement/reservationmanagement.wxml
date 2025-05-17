@@ -1,0 +1,96 @@
+<!--pages/reservationmanagement/reservationmanagement.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="header-title">预约管理</text>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <view class="search-box">
+      <t-icon name="search" size="44rpx" color="#999999" class="search-icon"></t-icon>
+      <input type="text" class="search-input" placeholder="搜索预约ID或用户名" confirm-type="search" value="{{searchKey}}" bindinput="handleSearchInput" bindconfirm="handleSearchConfirm" />
+      <view class="clear-icon" wx:if="{{searchKey.length > 0}}" bindtap="clearSearch">
+        <t-icon name="close-circle-filled" size="40rpx" color="#999999"></t-icon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 状态筛选 -->
+  <view class="status-filter">
+    <view class="filter-title">预约状态：</view>
+    <view class="filter-options">
+      <view class="filter-option {{currentStatus === '' ? 'active' : ''}}" bindtap="filterByStatus" data-status="">
+        全部
+      </view>
+      <view class="filter-option {{currentStatus === 'pending' ? 'active' : ''}}" bindtap="filterByStatus" data-status="pending">
+        待处理
+      </view>
+      <view class="filter-option {{currentStatus === 'confirmed' ? 'active' : ''}}" bindtap="filterByStatus" data-status="confirmed">
+        已确认
+      </view>
+      <view class="filter-option {{currentStatus === 'completed' ? 'active' : ''}}" bindtap="filterByStatus" data-status="completed">
+        已完成
+      </view>
+      <view class="filter-option {{currentStatus === 'rejected' ? 'active' : ''}}" bindtap="filterByStatus" data-status="rejected">
+        已拒绝
+      </view>
+      <view class="filter-option {{currentStatus === 'cancelled' ? 'active' : ''}}" bindtap="filterByStatus" data-status="cancelled">
+        已取消
+      </view>
+    </view>
+  </view>
+
+  <!-- 预约列表 -->
+  <view class="reservation-list">
+    <view wx:if="{{filteredReservations && filteredReservations.length > 0}}">
+      <my-card wx:for="{{filteredReservations}}" wx:key="reservationId" title="预约信息 #{{item.reservationId}}">
+        <view class="reservation-item" slot="content">
+          <view class="reservation-info">
+            <view class="info-row">
+              <text class="info-label">预约人：</text>
+              <text class="info-value">{{item.userName}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">实验室：</text>
+              <text class="info-value">{{item.labName}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">预约时间：</text>
+              <text class="info-value">{{item.reservationDate}} {{item.startTime}}-{{item.endTime}}</text>
+            </view>
+            <view class="info-row">
+              <text class="info-label">状态：</text>
+              <text class="status-tag status-{{item.status}}">
+                {{item.status === 'pending' ? '待处理' : 
+                  (item.status === 'confirmed' ? '已确认' : 
+                  (item.status === 'completed' ? '已完成' : 
+                  (item.status === 'rejected' ? '已拒绝' : '已取消')))}}
+              </text>
+            </view>
+            <view class="info-row" wx:if="{{item.remark}}">
+              <text class="info-label">备注：</text>
+              <text class="info-value">{{item.remark}}</text>
+            </view>
+          </view>
+        </view>
+        <view slot="actions" class="btn-group" wx:if="{{item.status === 'pending'}}">
+          <t-button size="small" variant="outline" theme="primary" bind:tap="confirmReservation" data-id="{{item.reservationId}}" class="action-btn confirm-btn">
+            <t-icon name="check" size="32rpx" slot="icon" />
+            确认
+          </t-button>
+          <t-button size="small" variant="outline" theme="danger" bind:tap="rejectReservation" data-id="{{item.reservationId}}" class="action-btn reject-btn">
+            <t-icon name="close" size="32rpx" slot="icon" />
+            拒绝
+          </t-button>
+        </view>
+      </my-card>
+    </view>
+
+    <!-- 空状态展示 -->
+    <view class="empty-state" wx:else>
+      <t-icon name="schedule" size="120rpx" color="#c0c0c0"></t-icon>
+      <text class="empty-text">暂无预约记录</text>
+    </view>
+  </view>
+</view>

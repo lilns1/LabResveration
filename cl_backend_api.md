@@ -68,7 +68,7 @@
 }
 ```
 
-### 1.3 查询(/{userId}) --Get
+### 1.3 按照用户ID查询(/{userId}) --Get
 
 ```json
 {
@@ -88,7 +88,60 @@
 }
 ```
 
-### 1.4 修改(/{userId}) --Put
+### 1.4 查找所有用户() --Get
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": [
+        {
+            "userId": "123456",
+            "userName": "llllll",
+            "userPassword": "123456",
+            "userRole": "user"
+        },
+        {
+            "userId": "1234567",
+            "userName": "1234567",
+            "userPassword": "123456",
+            "userRole": "user"
+        },
+        {
+            "userId": "231170020073",
+            "userName": "lls",
+            "userPassword": "234567",
+            "userRole": "user"
+        },
+        {
+            "userId": "231170020074",
+            "userName": "lqa",
+            "userPassword": "123321",
+            "userRole": "user"
+        },
+        {
+            "userId": "231170020081",
+            "userName": "lxh",
+            "userPassword": "234567",
+            "userRole": "user"
+        },
+        {
+            "userId": "235555",
+            "userName": "1321213",
+            "userPassword": "123456",
+            "userRole": null
+        },
+        {
+            "userId": "5122010343",
+            "userName": "xhx",
+            "userPassword": "123456",
+            "userRole": "user"
+        }
+    ]
+}
+```
+
+### 1.5 修改(/{userId}) --Put
 
 ```json
 {
@@ -115,6 +168,18 @@
     "data": null
 }
 ```
+
+### 1.6 删除(/{userId}) --Delete
+
+```json
+{
+    "code": 200,
+    "message": "success",
+    "data": "删除成功"
+}
+```
+
+
 
 ## 2.实训室(/lab)
 
@@ -165,7 +230,15 @@
 }
 ```
 
+### 2.3 修改实验室信息(/{labId}) --Post
+
+### 2.4 新增实验室(/{add}) --Post
+
+### 2.5 删除实验室(/{labId}) --Delete
+
 ## 3.预约(/reservation)
+
+### 3.0 获取全部 --GET
 
 ### 3.1 按用户ID查询(/user/{userId}) --Get
 
@@ -343,3 +416,11 @@
     "data": null
 }
 ```
+
+### 3.5 修改预约状态为已确认(/{reservationId}/confirm) --Put
+
+### 3.6 修改预约状态为已拒绝(/{reservationId}/reject) --Put
+
+## 4.公告(/notice)
+
+### 4.1 查询所有公告 --Get

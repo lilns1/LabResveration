@@ -12,7 +12,8 @@ Page({
     reserArr: [],
     currentIndex: Number,
     lab: [],
-    showNotice: true
+    showNotice: true,
+    noticeList: [],
   },
   closeNotice() {
     this.setData({
@@ -37,9 +38,22 @@ Page({
     this.setData({
       userid: app.globalData.userid,
       searchurl: app.globalData.apiurl + 'reservation/user/' + app.globalData.userid
-    })
+    });
     // console.log(this.data.searchurl);
-    
+    let url = app.globalData.apiurl + 'notice';
+    // console.log(url);
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode === 200) {
+          this.setData({
+            noticeList: res.data.data
+          });
+          // console.log(this.data.noticeList);
+        }
+      }
+    })
   },
 
   getmyfirstRecord() {
@@ -90,7 +104,7 @@ Page({
       url: this.data.searchurl,
       method: 'GET',
       success: (res) => {
-        console.log(res);
+        // console.log(res);
         if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
           this.setData({
             reserArr: res.data.data.reverse()

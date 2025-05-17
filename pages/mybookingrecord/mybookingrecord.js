@@ -34,7 +34,7 @@ Page({
           this.setData({
             userRecords: res.data.data
           })
-          // console.log(this.data.userRecords);
+          console.log(this.data.userRecords);
           this.dealCurrentTime();
         } 
       },

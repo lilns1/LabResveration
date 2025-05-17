@@ -1,0 +1,90 @@
+<!--pages/usermanagement/usermanagement.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="header-title">用户管理</text>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <view class="search-box">
+      <t-icon name="search" size="44rpx" color="#999999" class="search-icon"></t-icon>
+      <input type="text" class="search-input" placeholder="搜索用户ID或用户名" confirm-type="search" value="{{searchKey}}" bindinput="handleSearchInput" bindconfirm="handleSearchConfirm" />
+      <view class="clear-icon" wx:if="{{searchKey.length > 0}}" bindtap="clearSearch">
+        <t-icon name="close-circle-filled" size="40rpx" color="#999999"></t-icon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户列表 -->
+  <view class="user-list">
+    <view wx:if="{{filterusers && filterusers.length > 0}}">
+      <my-card wx:for="{{filterusers}}" wx:key="userID" title="{{item.userName}}">
+        <view class="user-item" slot="content">
+          <view>ID：{{item.userId}}</view>
+          <view class="user-role">
+            <text class="{{item.userRole === 'admin' ? 'role-admin-text' : 'role-user-text'}}">
+              {{item.userRole === 'admin' ? '管理员' : (item.userRole === 'user' ? '普通用户' : item.userRole || '未知')}}
+            </text>
+          </view>
+        </view>
+        <view slot="actions" class="btn-group">
+          <t-button size="small" variant="outline" theme="primary" bind:tap="handleEditUser" data-id="{{item.userId}}" class="action-btn edit-btn">
+            <t-icon name="edit" size="32rpx" slot="icon" />
+            修改
+          </t-button>
+          <t-button size="small" variant="outline" theme="danger" bind:tap="handleDeleteUser" data-id="{{item.userId}}" class="action-btn delete-btn">
+            <t-icon name="delete" size="32rpx" slot="icon" />
+            删除
+          </t-button>
+        </view>
+      </my-card>
+    </view>
+    <!-- 空状态展示 -->
+    <view class="empty-state" wx:else>
+      <t-icon name="user-circle" size="120rpx" color="#c0c0c0"></t-icon>
+      <text class="empty-text">暂无用户数据</text>
+    </view>
+  </view>
+
+  <t-popup visible="{{showEditPopup}}" placement="bottom" bind:visible-change="onPopupChange">
+    <view class="edit-popup">
+      <view class="popup-header">
+        <text class="popup-title">编辑用户信息</text>
+        <t-icon name="close" size="44rpx" color="#999" bind:tap="closeEditPopup" />
+      </view>
+
+      <view class="popup-content">
+        <view class="form-item">
+          <view class="form-label">用户名</view>
+          <view class="form-field">
+            <t-input value="{{editUserForm.userName}}" bind:change="onInputChange" data-field="userName" />
+          </view>
+        </view>
+        <view class="form-item">
+          <view class="form-label">密码</view>
+          <view class="form-field">
+            <t-input value="{{editUserForm.userPassword}}" bind:change="onInputChange" data-field="userPassword" />
+          </view>
+        </view>
+        <view class="form-item" wx:if="{{adminRole == 'superadmin'}}">
+          <view class="form-label">用户角色</view>
+          <view class="form-field">
+            <view class="role-selector">
+              <t-button size="small" theme="{{editUserForm.userRole === 'admin' ? 'primary' : 'default'}}" variant="{{editUserForm.userRole === 'admin' ? 'filled' : 'outline'}}" bindtap="setUserRole" data-role="admin">
+                管理员
+              </t-button>
+              <t-button size="small" theme="{{editUserForm.userRole === 'user' ? 'primary' : 'default'}}" variant="{{editUserForm.userRole === 'user' ? 'filled' : 'outline'}}" bindtap="setUserRole" data-role="user">
+                普通用户
+              </t-button>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="popup-footer">
+        <t-button theme="light" block bindtap="closeEditPopup">取消</t-button>
+        <t-button theme="primary" block bindtap="submitEditForm">保存</t-button>
+      </view>
+    </view>
+  </t-popup>
+</view>

@@ -3,8 +3,7 @@
   "usingComponents": {
     "t-swiper": "tdesign-miniprogram/swiper/swiper",
     "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
-    "notice": "/components/notice/notice",
     "my-card": "/components/my-card/my-card",
-    "swiper": "/components/swiper/swiper"
+    "my-swiper": "/components/swiper/swiper"
   }
 }

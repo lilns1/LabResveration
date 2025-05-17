@@ -7,8 +7,42 @@ Page({
    * 页面的初始数据
    */
   data: {
-    lab: []
+    lab: [],
+    filteredlab: [],
+    searchKeyword: ''
   },
+
+  handleSearchInput(e) {
+    this.setData({
+      searchKeyword: e.detail.value
+    });
+  },
+
+  handleSearch(e) {
+    const keyword = this.data.searchKeyword.trim().toLowerCase();
+    console.log(keyword);
+    if (!keyword) {
+      // 如果搜索词为空，显示全部实验室
+      this.setData({
+        filteredlab: this.data.lab
+      });
+      return;
+    }
+    // 按名称或位置过滤实验室
+    const filtered = this.data.lab.filter(item => {
+      return (
+        item.labName.toLowerCase().includes(keyword) || 
+        (item.labLocation && item.labLocation.toLowerCase().includes(keyword)) ||
+        (item.labDescription && item.labDescription.toLowerCase().includes(keyword))
+      );
+    });
+    
+    this.setData({
+      filteredlab: filtered
+    });
+    // console.log('filteredlab',this.data.filteredlab);
+  },
+  
   selectLab(e) {
     // console.log(e);
     const labset = e.currentTarget.dataset;
@@ -23,9 +57,10 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      lab: app.globalData.lab
+      lab: app.globalData.lab,
+      filteredlab: app.globalData.lab
     });
-    console.log(this.data.lab);
+    // console.log('filteredlab',this.data.filteredlab);
   },
 
   /**

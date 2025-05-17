@@ -1,7 +1,21 @@
 <!--pages/bookinglab/bookinglab.wxml-->
+<view class="search-container">
+  <label for="search">搜索</label>
+  <input 
+    type="text" 
+    id="search" 
+    maxlength="20" 
+    confirm-type="search" 
+    placeholder="搜索实验室"
+    bindinput="handleSearchInput"
+    bindconfirm="handleSearch"
+    value="{{searchKeyword}}"
+  />
+</view>
+
 <view class="container">
-  <block wx:if="{{lab && lab.length > 0}}">
-    <my-card wx:for="{{lab}}" wx:key="labId" title="{{item.labName}}" class="wide-card">
+  <block wx:if="{{filteredlab && filteredlab.length > 0}}">
+    <my-card wx:for="{{filteredlab}}" wx:key="labId" title="{{item.labName}}" class="wide-card">
       <view slot="content" class="lab-info">
         <view class="lab-basic">
           <view class="lab-item">
@@ -41,6 +55,6 @@
     </my-card>
   </block>
   <view wx:else class="empty-tip">
-    <text>暂无可预约的实验室</text>
+    <text>{{searchKeyword ? '没有找到符合条件的实验室' : '暂无可预约的实验室'}}</text>
   </view>
 </view>

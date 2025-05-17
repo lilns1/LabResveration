@@ -7,7 +7,12 @@
     "pages/bookinglab/bookinglab",
     "pages/choosetime/choosetime",
     "pages/register/register",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/management/management",
+    "pages/usermanagement/usermanagement",
+    "pages/reservationmanagement/reservationmanagement",
+    "pages/noticemanagement/noticemanagement",
+    "pages/labmanagement/labmanagement"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -21,7 +26,8 @@
     "t-row": "tdesign-miniprogram/row/row",
     "t-col": "tdesign-miniprogram/col/col",
     "t-input": "tdesign-miniprogram/input/input",
-    "t-link": "tdesign-miniprogram/link/link"
+    "t-link": "tdesign-miniprogram/link/link",
+    "t-icon": "tdesign-miniprogram/icon/icon"
   },
   "tabBar": {
     "custom": true,

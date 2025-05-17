@@ -1,15 +1,18 @@
 <tab-bar></tab-bar>
 
 <view class="section-wrapper">
-  <swiper></swiper>
+  <my-swiper></my-swiper>
 </view>
 
-<view class="section-wrapper" wx:if="{{showNotice}}">
-  <view class="notice-container">
-    <notice></notice>
-    <view class="notice-close" bindtap="closeNotice">
-      <t-icon name="close" size="36rpx" color="#999"></t-icon>
-    </view>
+<view class="section-wrapper notice-container" wx:if="{{showNotice}}">
+  <swiper class="notice-swiper" autoplay="{{true}}" interval="{{3000}}" duration="{{500}}" circular="{{true}}" vertical="{{false}}">
+    <swiper-item wx:for="{{noticeList}}" wx:key="index" class="notice-swiper-item">
+      <view class="notice-content">通知：{{item.noticeText}}</view>
+    </swiper-item>
+  </swiper>
+  <!-- 将关闭按钮移到swiper外部 -->
+  <view class="notice-close" bindtap="closeNotice">
+    <t-icon name="close" size="36rpx" color="#999"></t-icon>
   </view>
 </view>
 
