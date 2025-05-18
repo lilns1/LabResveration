@@ -44,16 +44,16 @@
   <!-- 预约列表 -->
   <view class="reservation-list">
     <view wx:if="{{filteredReservations && filteredReservations.length > 0}}">
-      <my-card wx:for="{{filteredReservations}}" wx:key="reservationId" title="预约信息 #{{item.reservationId}}">
+      <my-card wx:for="{{filteredReservations}}" wx:key="reservationId" title="预约记录 #{{item.reservationId}}">
         <view class="reservation-item" slot="content">
           <view class="reservation-info">
             <view class="info-row">
-              <text class="info-label">预约人：</text>
-              <text class="info-value">{{item.userName}}</text>
+              <text class="info-label">预约ID：</text>
+              <text class="info-value">{{item.reservationId}}</text>
             </view>
             <view class="info-row">
               <text class="info-label">实验室：</text>
-              <text class="info-value">{{item.labName}}</text>
+              <text class="info-value">{{item.labId}}</text>
             </view>
             <view class="info-row">
               <text class="info-label">预约时间：</text>
@@ -61,26 +61,26 @@
             </view>
             <view class="info-row">
               <text class="info-label">状态：</text>
-              <text class="status-tag status-{{item.status}}">
-                {{item.status === 'pending' ? '待处理' : 
-                  (item.status === 'confirmed' ? '已确认' : 
-                  (item.status === 'completed' ? '已完成' : 
-                  (item.status === 'rejected' ? '已拒绝' : '已取消')))}}
+              <text class="status-tag status-{{item.reservationStatus}}">
+                {{item.reservationStatus === 'pending' ? '待审批' : 
+                  (item.reservationStatus === 'confirmed' ? '已通过' : 
+                  (item.reservationStatus === 'completed' ? '已完成' : 
+                  (item.reservationStatus === 'rejected' ? '已拒绝' : '已取消')))}}
               </text>
             </view>
-            <view class="info-row" wx:if="{{item.remark}}">
-              <text class="info-label">备注：</text>
-              <text class="info-value">{{item.remark}}</text>
+            <view class="info-row" wx:if="{{item.purpose}}">
+              <text class="info-label">实验目的：</text>
+              <text class="info-value">{{item.purpose}}</text>
             </view>
           </view>
         </view>
-        <view slot="actions" class="btn-group" wx:if="{{item.status === 'pending'}}">
+        <view slot="actions" class="btn-group" wx:if="{{item.reservationStatus === 'pending'}}">
           <t-button size="small" variant="outline" theme="primary" bind:tap="confirmReservation" data-id="{{item.reservationId}}" class="action-btn confirm-btn">
-            <t-icon name="check" size="32rpx" slot="icon" />
+            <t-icon name="check" size="32rpx" />
             确认
           </t-button>
           <t-button size="small" variant="outline" theme="danger" bind:tap="rejectReservation" data-id="{{item.reservationId}}" class="action-btn reject-btn">
-            <t-icon name="close" size="32rpx" slot="icon" />
+            <t-icon name="close" size="32rpx" />
             拒绝
           </t-button>
         </view>

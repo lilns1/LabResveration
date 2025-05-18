@@ -26,26 +26,19 @@ Page({
   fetchReservations() {
     // API请求部分留空，由你自己实现
     // 示例数据结构
-    const mockData = [
-      {
-        reservationId: '1001',
-        userId: 'user123',
-        userName: '张三',
-        labId: 'lab001',
-        labName: '物理实验室A',
-        reservationDate: '2025-05-18',
-        startTime: '09:00',
-        endTime: '11:00',
-        status: 'pending',
-        remark: '期末实验项目'
-      },
-      // 更多示例数据...
-    ];
-
-    this.setData({
-      reservations: mockData,
-      filteredReservations: mockData
-    });
+    wx.request({
+      url: app.globalData.apiurl + 'reservation',
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode === 200) {
+          console.log(res);
+          this.setData({
+            reservations: res.data.data,
+            filteredReservations: res.data.data
+          });
+        }
+      }
+    })
   },
 
   /**
@@ -118,7 +111,7 @@ Page({
    */
   confirmReservation(e) {
     const reservationId = e.currentTarget.dataset.id;
-    
+    console.log( app.globalData.apiurl + 'reservation/' + reservationId + '/confirm');
     wx.showModal({
       title: '确认预约',
       content: '确定要批准此预约申请吗？',
@@ -129,17 +122,27 @@ Page({
             title: '处理中...',
           });
           
-          // 模拟API请求成功
-          setTimeout(() => {
-            // 更新本地数据状态
-            this.updateReservationStatus(reservationId, 'confirmed');
-            
-            wx.hideLoading();
-            wx.showToast({
-              title: '已确认预约',
-              icon: 'success'
-            });
-          }, 500);
+          wx.request({
+            url: app.globalData.apiurl + 'reservation/' + reservationId + '/confirm',
+            method: 'PUT',
+            success: (res) => {
+              wx.hideLoading();
+              if (res.statusCode === 200) {
+                wx.showToast({
+                  title: '通过预约',
+                  icon: 'success'
+                });
+                this.onLoad();
+              }
+            },
+            fail: (res) => {
+              wx.hideLoading();
+              wx.showToast({
+                title: '操作失败',
+                icon: 'error'
+              });
+            }
+          })
         }
       }
     });
@@ -162,17 +165,28 @@ Page({
             title: '处理中...',
           });
           
-          // 模拟API请求成功
-          setTimeout(() => {
-            // 更新本地数据状态
-            this.updateReservationStatus(reservationId, 'rejected');
-            
-            wx.hideLoading();
-            wx.showToast({
-              title: '已拒绝预约',
-              icon: 'success'
-            });
-          }, 500);
+          wx.request({
+            url: app.globalData.apiurl + 'reservation/' + reservationId + '/reject',
+            method: 'PUT',
+            success: (res) => {
+              wx.hideLoading();
+              if (res.statusCode === 200) {
+                wx.showToast({
+                  title: '拒绝预约',
+                  icon: 'success'
+                });
+                this.onLoad();
+              }
+            },
+            fail: (res) => {
+              wx.hideLoading();
+              wx.showToast({
+                title: '操作失败',
+                icon: 'error'
+              });
+            }
+          })
+
         }
       }
     });
