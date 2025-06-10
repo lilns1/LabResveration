@@ -10,7 +10,31 @@ Page({
     studentId: '',
     textPassword: '',
     loginurl: '',
-    showPassword: false
+    showPassword: false,
+    selectedIdentity: 'student', // 默认选择学生身份
+    identityConfig: {
+      student: {
+        label: '学号',
+        placeholder: '请输入学号'
+      },
+      teacher: {
+        label: '工号',
+        placeholder: '请输入工号'
+      },
+      admin: {
+        label: '管理员号',
+        placeholder: '请输入管理员号'
+      }
+    }
+  },
+
+  // 选择身份
+  selectIdentity(e) {
+    const identity = e.currentTarget.dataset.identity;
+    this.setData({
+      selectedIdentity: identity,
+      studentId: '' // 切换身份时清空输入
+    });
   },
 
   togglePasswordVisibility() {
@@ -21,7 +45,7 @@ Page({
   },
 
   trylogin() {
-    const { studentId, textPassword } = this.data;
+    const { studentId, textPassword, selectedIdentity } = this.data;
 
     let logindata = {
       userId: studentId,
@@ -29,11 +53,13 @@ Page({
     };
 
     // console.log('登录数据:', logindata);
+    // console.log('选择的身份:', selectedIdentity);
     // console.log('登录URL:', this.data.loginurl);
 
     if (!studentId) {
+      const inputLabel = this.data.identityConfig[selectedIdentity].label;
       wx.showToast({
-        title: '请输入学号',
+        title: `请输入${inputLabel}`,
         icon: 'none'
       });
       return;
@@ -70,7 +96,9 @@ Page({
           app.globalData.username = res.data.data.userName;
           app.globalData.userid = studentId; 
           app.globalData.userrole = res.data.data.userRole;
+          app.globalData.selectedIdentity = selectedIdentity; // 保存选择的身份
           // console.log("name", app.globalData.username);
+          // console.log("identity", app.globalData.selectedIdentity);
 
           if (app.globalData.userrole == 'user') {
             wx.switchTab({
@@ -83,7 +111,7 @@ Page({
           }
         } else {
           // console.log(123);
-          const errMsg = res.data && res.data.message ? res.data.message : '学号或密码错误';
+          const errMsg = res.data && res.data.message ? res.data.message : '账号或密码错误';
           wx.showToast({
             title: errMsg,
             icon: 'none'

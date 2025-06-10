@@ -39,6 +39,59 @@
   margin-bottom: 60rpx; /* 与下方按钮区域的间距 */
 }
 
+/* 身份选择区域 */
+.identity-section {
+  margin-bottom: 40rpx;
+}
+
+.identity-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.identity-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.identity-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-radius: 12rpx;
+  border: 2rpx solid #e8eaed;
+  background-color: #fafbfc;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.identity-option.active {
+  border-color: #0052d9;
+  background-color: rgba(0, 82, 217, 0.05);
+}
+
+.identity-option:hover {
+  border-color: #0052d9;
+  background-color: rgba(0, 82, 217, 0.02);
+}
+
+.option-text {
+  font-size: 26rpx;
+  color: #333;
+  margin-top: 8rpx;
+  font-weight: 500;
+}
+
+.identity-option.active .option-text {
+  color: #0052d9;
+}
+
 /* 为 t-input 组件之间添加一些间距 */
 .form-section t-input + t-input { /* 使用相邻兄弟选择器更精确 */
   margin-top: 40rpx; /* 增大输入框间距 */

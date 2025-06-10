@@ -1,2 +1,54 @@
-<!--pages/noticemanagement/noticemanagement.wxml-->
-<text>pages/noticemanagement/noticemanagement.wxml</text>
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="header-title">公告管理</text>
+  </view>
+
+  <!-- 公告列表 -->
+  <view class="notice-list">
+    <view wx:if="{{notices && notices.length > 0}}">
+      <view wx:for="{{notices}}" wx:key="noticeId" class="notice-card">
+        <view class="notice-content">
+          {{item.noticeText}}
+        </view>
+        <view class="notice-actions">
+          <t-button size="small" variant="outline" theme="danger" bind:tap="handleDeleteNotice" data-id="{{item.noticeId}}" class="action-btn delete-btn">
+            删除
+          </t-button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态展示 -->
+    <view class="empty-state" wx:else>
+      <t-icon name="notification" size="120rpx" color="#c0c0c0"></t-icon>
+      <text class="empty-text">暂无公告记录</text>
+    </view>
+  </view>
+
+  <view class="floating-add-btn" bindtap="openAddNoticePopup">
+    <t-icon name="add" size="48rpx" color="#ffffff"></t-icon>
+  </view>
+
+  <!-- 添加公告弹窗 -->
+  <t-popup visible="{{showAddPopup}}" bind:visible-change="onPopupChange" placement="bottom">
+    <view class="popup-container">
+      <view class="popup-header">
+        <text class="popup-title">添加公告</text>
+        <t-icon name="close" size="44rpx" color="#999999" bind:tap="closeAddPopup" class="close-icon"></t-icon>
+      </view>
+      <!-- 移除 form 标签或其 bindsubmit 事件 -->
+      <view>
+        <view class="form-group">
+          <view class="form-label">公告内容</view>
+          <!-- 使用 model:value 进行双向数据绑定 -->
+          <textarea model:value="{{noticeTextInput}}" class="form-textarea" placeholder="请输入公告内容" maxlength="500"></textarea>
+        </view>
+        <view class="form-actions">
+          <!-- 将按钮的 form-type="submit" 改为 bind:tap -->
+          <t-button size="medium" theme="primary" bind:tap="handleManualSubmit" block>提交</t-button>
+        </view>
+      </view>
+    </view>
+  </t-popup>
+</view>

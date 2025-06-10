@@ -1,2 +1,112 @@
-<!--pages/labmanagement/labmanagement.wxml-->
-<text>pages/labmanagement/labmanagement.wxml</text>
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <text class="header-title">实验室管理</text>
+  </view>
+
+  <!-- 搜索框 -->
+  <view class="search-container">
+    <view class="search-box">
+      <t-icon name="search" size="44rpx" color="#999999" class="search-icon"></t-icon>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="搜索实验室名称或位置"
+        confirm-type="search"
+        value="{{searchKey}}"
+        bindinput="handleSearchInput"
+        bindconfirm="handleSearchConfirm"
+      />
+      <view class="clear-icon" wx:if="{{searchKey.length > 0}}" bindtap="clearSearch">
+        <t-icon name="close-circle-filled" size="40rpx" color="#999999"></t-icon>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 实验室列表 -->
+  <view class="lab-list">
+    <block wx:if="{{ (searchKey && filteredLabs.length > 0) || (!searchKey && labs.length > 0) }}">
+      <view class="lab-card" wx:for="{{searchKey ? filteredLabs : labs}}" wx:key="labId">
+        <view class="lab-info">
+          <view class="lab-name-status">
+            <text class="lab-name">{{item.labName}}</text>
+            <text class="lab-status {{'status-' + (item.labStatus || 'unknown')}}">{{formatLabStatus(item.labStatus)}}</text>
+          </view>
+          <view class="lab-detail-item">
+            <t-icon name="location" size="32rpx" color="#666" class="detail-icon"></t-icon>
+            <text class="lab-location">位置: {{item.labLocation || '未指定'}}</text>
+          </view>
+          <view class="lab-detail-item">
+            <t-icon name="usergroup" size="32rpx" color="#666" class="detail-icon"></t-icon>
+            <text class="lab-capacity">容量: {{item.labCapacity || 'N/A'}} 人</text>
+          </view>
+          <view class="lab-detail-item" wx:if="{{item.labOpentime && item.labClosetime}}">
+            <t-icon name="time" size="32rpx" color="#666" class="detail-icon"></t-icon>
+            <text class="lab-time">开放时间: {{item.labOpentime}} - {{item.labClosetime}}</text>
+          </view>
+          <view class="lab-detail-item" wx:if="{{item.labDescription}}">
+            <t-icon name="article" size="32rpx" color="#666" class="detail-icon"></t-icon>
+            <text class="lab-description">描述: {{item.labDescription}}</text>
+          </view>
+        </view>
+        <view class="lab-actions">
+          <button class="action-btn edit" bindtap="openEditLabPopup" data-id="{{item.labId}}">编辑</button>
+          <button class="action-btn delete" bindtap="handleDeleteLab" data-id="{{item.labId}}">删除</button>
+        </view>
+      </view>
+    </block>
+    <view class="empty-state" wx:else>
+      <t-icon name="app" size="96rpx" color="#cccccc"></t-icon>
+      <text class="empty-text">{{searchKey ? '没有找到匹配的实验室' : '暂无实验室数据，请添加'}}</text>
+    </view>
+  </view>
+
+  <!-- 悬浮添加按钮 -->
+  <view class="floating-add-btn" bindtap="openAddLabPopup">
+    <t-icon name="add" size="48rpx" color="#ffffff"></t-icon>
+  </view>
+
+  <!-- 添加/编辑实验室弹窗 -->
+  <t-popup visible="{{showAddEditPopup}}" placement="bottom" bind:visible-change="onPopupChange">
+    <view class="popup-content">
+      <view class="popup-header">
+        <text class="popup-title">{{isEditMode ? '编辑实验室' : '添加实验室'}}</text>
+        <view bindtap="closeAddEditPopup" class="popup-close-btn">
+            <t-icon name="close" size="40rpx" color="#999"></t-icon>
+        </view>
+      </view>
+      <form bindsubmit="submitLabForm">
+        <view class="form-item">
+          <label class="form-label">实验室名称<text class="required">*</text></label>
+          <input name="labName" class="form-input" placeholder="请输入实验室名称" value="{{labForm.labName}}" />
+        </view>
+        <view class="form-item">
+          <label class="form-label">实验室位置<text class="required">*</text></label>
+          <input name="labLocation" class="form-input" placeholder="请输入实验室位置" value="{{labForm.labLocation}}" />
+        </view>
+        <view class="form-item">
+          <label class="form-label">实验室容量<text class="required">*</text></label>
+          <input name="labCapacity" type="number" class="form-input" placeholder="请输入数量" value="{{labForm.labCapacity}}" />
+        </view>
+        <!-- 开放时间和关闭时间在一行显示 -->
+        <view class="form-item">
+          <label class="form-label">开放时间<text class="required">*</text></label>
+          <view class="time-input-row">
+            <input name="labOpentime" class="form-input time-input" placeholder="09:00:00" value="{{labForm.labOpentime}}" />
+            <text class="time-separator">至</text>
+            <input name="labClosetime" class="form-input time-input" placeholder="18:00:00" value="{{labForm.labClosetime}}" />
+          </view>
+          <view class="time-hint">请输入格式：HH:MM:SS（如：09:00:00）</view>
+        </view>
+        <!-- 移除状态选择，新建时默认为可用状态 -->
+        <view class="form-item">
+          <label class="form-label">实验室描述</label>
+          <textarea name="labDescription" class="form-textarea" placeholder="请输入实验室描述 (可选)" value="{{labForm.labDescription}}" maxlength="200"></textarea>
+        </view>
+        <button class="submit-btn" form-type="submit">
+          {{isEditMode ? '保存更改' : '确认添加'}}
+        </button>
+      </form>
+    </view>
+  </t-popup>
+</view>

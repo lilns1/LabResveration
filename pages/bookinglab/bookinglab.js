@@ -56,11 +56,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      lab: app.globalData.lab,
-      filteredlab: app.globalData.lab
+    wx.request({
+      url: app.globalData.apiurl + 'lab',
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode === 200) {
+          // console.log(res);
+          this.setData({
+            lab: res.data.data,
+            filteredlab: res.data.data // 初始时显示所有
+          });
+        }
+      }
     });
-    // console.log('filteredlab',this.data.filteredlab);
   },
 
   /**

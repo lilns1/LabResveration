@@ -1,1 +1,349 @@
 /* pages/labmanagement/labmanagement.wxss */
+page {
+  background-color: #f4f6f8;
+}
+
+.container {
+  padding: 15rpx 15rpx 120rpx 15rpx; /* 底部留出空间给悬浮按钮 */
+  min-height: fit-content;
+  box-sizing: border-box;
+}
+
+/* 标题样式 */
+.page-header {
+  padding: 10rpx 10rpx 10rpx 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.header-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 搜索栏样式 */
+.search-container {
+  margin-bottom: 15rpx;
+  padding: 0 10rpx;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 36rpx;
+  padding: 0 25rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.06);
+  height: 72rpx;
+}
+
+.search-icon {
+  margin-right: 15rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333;
+  height: 100%;
+}
+
+.clear-icon {
+  padding-left: 15rpx;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* 悬浮添加按钮 */
+.floating-add-btn {
+  position: fixed;
+  bottom: 60rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #0052d9;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 82, 217, 0.3);
+  z-index: 100;
+  transition: all 0.2s ease;
+}
+
+.floating-add-btn:active {
+  transform: translateX(-50%) scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(0, 82, 217, 0.3);
+}
+
+/* 实验室列表 */
+.lab-list {
+  padding: 0 10rpx;
+  margin-top: 5rpx;
+}
+
+.lab-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 25rpx;
+  margin-bottom: 15rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.lab-info {
+  margin-bottom: 20rpx;
+}
+
+.lab-name-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.lab-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.lab-status {
+  font-size: 22rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 6rpx;
+  font-weight: 500;
+}
+
+.status-available {
+  background-color: rgba(26, 173, 25, 0.1);
+  color: #1aad19;
+  border: 1rpx solid rgba(26, 173, 25, 0.2);
+}
+
+.status-maintenance {
+  background-color: rgba(255, 170, 0, 0.1);
+  color: #ffaa00;
+  border: 1rpx solid rgba(255, 170, 0, 0.2);
+}
+
+.status-unavailable {
+  background-color: rgba(227, 77, 89, 0.1);
+  color: #e34d59;
+  border: 1rpx solid rgba(227, 77, 89, 0.2);
+}
+
+.status-unknown {
+  background-color: rgba(153, 153, 153, 0.1);
+  color: #999;
+  border: 1rpx solid rgba(153, 153, 153, 0.2);
+}
+
+.lab-detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #555;
+  margin-bottom: 10rpx;
+}
+.lab-detail-item:last-child {
+  margin-bottom: 0;
+}
+.detail-icon {
+  margin-right: 10rpx;
+}
+
+.lab-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 20rpx;
+}
+
+.action-btn {
+  font-size: 26rpx;
+  padding: 10rpx 25rpx;
+  border-radius: 8rpx;
+  line-height: 1.5;
+  margin: 0;
+}
+.action-btn::after {
+  border: none;
+}
+
+.edit {
+  background-color: #0052d9;
+  color: white;
+}
+
+.delete {
+  background-color: #e34d59;
+  color: white;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+  color: #999;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  margin-top: 20rpx;
+}
+
+/* 弹窗样式 */
+.popup-content {
+  background-color: #fff;
+  padding: 30rpx;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.popup-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+.popup-close-btn {
+  padding: 10rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+  font-weight: 500;
+}
+.required {
+  color: #e34d59;
+  margin-left: 5rpx;
+}
+
+/* 修复输入框样式，解决文本偏移问题 */
+.form-input, .form-textarea, .picker-display {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #e8eaed;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  background-color: #fafbfc;
+  transition: all 0.2s ease;
+  /* 修复文本垂直对齐问题 */
+  line-height: 1.4;
+  vertical-align: baseline;
+  display: flex;
+  align-items: center;
+  min-height: 56rpx;
+}
+
+/* 专门针对input的样式修复 */
+.form-input {
+  height: 96rpx; /* 固定高度 */
+  line-height: 56rpx; /* 行高与内容区域匹配 */
+  display: block; /* 改为block，避免flex布局问题 */
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: #0052d9;
+  background-color: #fff;
+}
+
+.form-textarea {
+  height: 160rpx;
+  line-height: 1.5;
+  resize: none;
+  padding-top: 20rpx; /* 确保文本从顶部开始 */
+  vertical-align: top;
+  display: block;
+}
+
+.picker-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #333;
+  min-height: 56rpx;
+  height: 96rpx; /* 与input保持一致的高度 */
+}
+
+.picker-display[data-placeholder] {
+  color: #999;
+}
+
+/* 时间输入行样式 */
+.time-input-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.time-input {
+  flex: 1;
+  min-width: 0; /* 防止输入框过宽 */
+  /* 继承父级的input样式，确保一致性 */
+}
+
+.time-separator {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+  flex-shrink: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 96rpx; /* 与输入框高度保持一致 */
+}
+
+.time-hint {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+  line-height: 1.4;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 32rpx;
+  border-radius: 12rpx;
+  margin-top: 30rpx;
+  background: linear-gradient(135deg, #0052d9 0%, #0043b8 100%);
+  color: white;
+  font-weight: 500;
+  box-shadow: 0 4rpx 12rpx rgba(0, 82, 217, 0.2);
+  transition: all 0.2s ease;
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.submit-btn:active {
+  transform: translateY(1rpx);
+  box-shadow: 0 2rpx 8rpx rgba(0, 82, 217, 0.2);
+}

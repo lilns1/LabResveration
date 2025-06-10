@@ -6,7 +6,44 @@
   </view>
 
   <view class="form-section">
-    <t-input label="学号" placeholder="请输入学号" model:value="{{studentId}}" clearable />
+    <!-- 身份选择区域 -->
+    <view class="identity-section">
+      <text class="identity-label">选择身份</text>
+      <view class="identity-options">
+        <view 
+          class="identity-option {{selectedIdentity === 'student' ? 'active' : ''}}"
+          bindtap="selectIdentity"
+          data-identity="student"
+        >
+          <t-icon name="user" size="32rpx" color="{{selectedIdentity === 'student' ? '#0052d9' : '#999'}}"></t-icon>
+          <text class="option-text">学生</text>
+        </view>
+        <view 
+          class="identity-option {{selectedIdentity === 'teacher' ? 'active' : ''}}"
+          bindtap="selectIdentity"
+          data-identity="teacher"
+        >
+          <t-icon name="usergroup" size="32rpx" color="{{selectedIdentity === 'teacher' ? '#0052d9' : '#999'}}"></t-icon>
+          <text class="option-text">教师</text>
+        </view>
+        <view 
+          class="identity-option {{selectedIdentity === 'admin' ? 'active' : ''}}"
+          bindtap="selectIdentity"
+          data-identity="admin"
+        >
+          <t-icon name="setting" size="32rpx" color="{{selectedIdentity === 'admin' ? '#0052d9' : '#999'}}"></t-icon>
+          <text class="option-text">管理员</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 动态标签的输入框 -->
+    <t-input 
+      label="{{identityConfig[selectedIdentity].label}}" 
+      placeholder="{{identityConfig[selectedIdentity].placeholder}}" 
+      model:value="{{studentId}}" 
+      clearable 
+    />
     <t-input 
       label="密码" 
       type="{{showPassword ? 'text' : 'password'}}" 
