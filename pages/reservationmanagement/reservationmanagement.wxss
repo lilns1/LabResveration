@@ -1,210 +1,216 @@
 /* pages/reservationmanagement/reservationmanagement.wxss */
 
 .container {
-    height: 100%;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 30rpx;
-    box-sizing: border-box;
-  }
-  
-  /* 页面标题 */
-  .page-header {
-    margin-bottom: 30rpx;
-  }
-  
-  .header-title {
-    font-size: 40rpx;
-    font-weight: bold;
-    color: #333;
-    display: inline-block;
-    position: relative;
-  }
-  
-  .header-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10rpx;
-    left: 0;
-    width: 60rpx;
-    height: 6rpx;
-    background-color: #4285f4;
-    border-radius: 3rpx;
-  }
-  
-  /* 搜索框样式 */
-  .search-container {
-    margin-bottom: 30rpx;
-  }
-  
-  .search-box {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 38rpx;
-    padding: 15rpx 25rpx;
-    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
-    position: relative;
-    border: 1rpx solid #eaeaea;
-  }
-  
-  .search-icon {
-    margin-right: 15rpx;
-  }
-  
-  .search-input {
-    flex: 1;
-    height: 70rpx;
-    line-height: 70rpx;
-    font-size: 28rpx;
-    color: #333;
-  }
-  
-  .clear-icon {
-    padding: 10rpx;
-  }
-  
-  /* 状态筛选 */
-  .status-filter {
-    margin-bottom: 30rpx;
-    background-color: white;
-    padding: 20rpx;
-    border-radius: 12rpx;
-    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
-  }
-  
-  .filter-title {
-    font-size: 28rpx;
-    font-weight: 500;
-    margin-bottom: 16rpx;
-    color: #333;
-  }
-  
-  .filter-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16rpx;
-  }
-  
-  .filter-option {
-    padding: 10rpx 20rpx;
-    font-size: 24rpx;
-    border-radius: 30rpx;
-    background-color: #f5f5f5;
-    color: #666;
-    transition: all 0.3s;
-  }
-  
-  .filter-option.active {
-    background-color: #e6f1fe;
-    color: #4285f4;
-    font-weight: 500;
-  }
-  
-  /* 预约列表样式 */
-  .reservation-list {
-    width: 100%;
-  }
-  
-  .reservation-item {
-    padding: 10rpx;
-    display: flex;
-    flex-direction: column;
-    font-size: 28rpx;
-    line-height: 1.5;
-  }
-  
-  .reservation-info {
-    display: flex;
-    flex-direction: column;
-    gap: 12rpx;
-  }
-  
-  .info-row {
-    display: flex;
-    align-items: center;
-  }
-  
-  .info-label {
-    color: #666;
-    width: 150rpx;
-    flex-shrink: 0;
-  }
-  
-  .info-value {
-    color: #333;
-    flex: 1;
-  }
-  
-  /* 状态标签 */
-  .status-tag {
-    padding: 4rpx 12rpx;
-    border-radius: 20rpx;
-    font-size: 24rpx;
-    font-weight: 500;
-  }
-  
-  .status-pending {
-    background-color: #fff8e6;
-    color: #fbbc05;
-  }
-  
-  .status-confirmed {
-    background-color: #e6f1fe;
-    color: #4285f4;
-  }
-  
-  .status-completed {
-    background-color: #e6f8ef;
-    color: #34a853;
-  }
-  
-  .status-rejected {
-    background-color: #fee6e6;
-    color: #ea4335;
-  }
-  
-  .status-cancelled {
-    background-color: #f2f2f2;
-    color: #9aa0a6;
-  }
-  
-  /* 按钮组 */
-  .btn-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16rpx;
-    margin-top: 16rpx;
-  }
-  
-  .action-btn {
-    min-width: 140rpx;
-    padding: 0 20rpx;
-    font-size: 24rpx;
-    border-radius: 8rpx;
-  }
-  
-  .confirm-btn {
-    --td-button-default-border-color: #34a853;
-    --td-button-default-color: #34a853;
-  }
-  
-  .reject-btn {
-    --td-button-default-border-color: #ea4335;
-    --td-button-default-color: #ea4335;
-  }
-  
-  /* 空状态 */
-  .empty-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 100rpx 0;
-  }
-  
-  .empty-text {
-    font-size: 28rpx;
-    color: #999;
-    margin-top: 20rpx;
-  }
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+/* 页面标题 */
+.page-header {
+  margin-bottom: 30rpx;
+}
+
+.header-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  display: inline-block;
+  position: relative;
+}
+
+.header-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 0;
+  width: 60rpx;
+  height: 6rpx;
+  background-color: #4285f4;
+  border-radius: 3rpx;
+}
+
+/* 搜索框样式 */
+.search-container {
+  margin-bottom: 30rpx;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 38rpx;
+  padding: 15rpx 25rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
+  position: relative;
+  border: 1rpx solid #eaeaea;
+}
+
+.search-icon {
+  margin-right: 15rpx;
+}
+
+.search-input {
+  flex: 1;
+  height: 70rpx;
+  line-height: 70rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.clear-icon {
+  padding: 10rpx;
+}
+
+/* 状态筛选 */
+.status-filter {
+  margin-bottom: 30rpx;
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.filter-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 16rpx;
+  color: #333;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.filter-option {
+  padding: 10rpx 20rpx;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  background-color: #f5f5f5;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.filter-option.active {
+  background-color: #e6f1fe;
+  color: #4285f4;
+  font-weight: 500;
+}
+
+/* 预约列表样式 */
+.reservation-list {
+  width: 100%;
+}
+
+.reservation-item {
+  padding: 10rpx;
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+}
+
+.info-label {
+  color: #666;
+  width: 150rpx;
+  flex-shrink: 0;
+}
+
+.info-value {
+  color: #333;
+  flex: 1;
+}
+
+/* 状态标签 */
+.status-tag {
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  line-height: 1;
+  font-size: 24rpx;
+  display: inline-flex;  /* 改为 inline-flex */
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;  /* 在 inline-flex 中仍然有效 */
+  min-height: 32rpx;  /* 改为 min-height */
+  box-sizing: border-box;
+}
+
+.status-pending {
+  background-color: #fff8e6;
+  color: #fbbc05;
+}
+
+.status-confirmed {
+  background-color: #e6f1fe;
+  color: #4285f4;
+}
+
+.status-completed {
+  background-color: #e6f8ef;
+  color: #34a853;
+}
+
+.status-rejected {
+  background-color: #fee6e6;
+  color: #ea4335;
+}
+
+.status-cancelled {
+  background-color: #f2f2f2;
+  color: #9aa0a6;
+}
+
+/* 按钮组 */
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 16rpx;
+}
+
+.action-btn {
+  min-width: 140rpx;
+  padding: 0 20rpx;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+}
+
+.confirm-btn {
+  --td-button-default-border-color: #34a853;
+  --td-button-default-color: #34a853;
+}
+
+.reject-btn {
+  --td-button-default-border-color: #ea4335;
+  --td-button-default-color: #ea4335;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 20rpx;
+}

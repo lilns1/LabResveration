@@ -44,16 +44,16 @@
   <!-- 预约列表 -->
   <view class="reservation-list">
     <view wx:if="{{filteredReservations && filteredReservations.length > 0}}">
-      <my-card wx:for="{{filteredReservations}}" wx:key="reservationId" title="预约记录 #{{item.reservationId}}">
+      <my-card wx:for="{{filteredReservations}}" wx:key="reservationId" title="预约记录 {{item.reservationId}}">
         <view class="reservation-item" slot="content">
           <view class="reservation-info">
             <view class="info-row">
-              <text class="info-label">预约ID：</text>
-              <text class="info-value">{{item.reservationId}}</text>
+              <text class="info-label">预约用户：</text>
+              <text class="info-value">{{item.userName}}</text>
             </view>
             <view class="info-row">
               <text class="info-label">实验室：</text>
-              <text class="info-value">{{item.labId}}</text>
+              <text class="info-value">{{item.labName}}</text>
             </view>
             <view class="info-row">
               <text class="info-label">预约时间：</text>
@@ -61,12 +61,14 @@
             </view>
             <view class="info-row">
               <text class="info-label">状态：</text>
-              <text class="status-tag status-{{item.reservationStatus}}">
-                {{item.reservationStatus === 'pending' ? '待审批' : 
-                  (item.reservationStatus === 'confirmed' ? '已通过' : 
-                  (item.reservationStatus === 'completed' ? '已完成' : 
-                  (item.reservationStatus === 'rejected' ? '已拒绝' : '已取消')))}}
-              </text>
+              <view class="info-value">
+                <view class="status-tag status-{{item.reservationStatus}}">
+                  {{item.reservationStatus === 'pending' ? '待审批' : 
+                    (item.reservationStatus === 'confirmed' ? '已通过' : 
+                    (item.reservationStatus === 'completed' ? '已完成' : 
+                    (item.reservationStatus === 'rejected' ? '已拒绝' : '已取消')))}}
+                </view>
+              </view>
             </view>
             <view class="info-row" wx:if="{{item.purpose}}">
               <text class="info-label">实验目的：</text>

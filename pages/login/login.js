@@ -33,7 +33,8 @@ Page({
     const identity = e.currentTarget.dataset.identity;
     this.setData({
       selectedIdentity: identity,
-      studentId: '' // 切换身份时清空输入
+      studentId: '', // 切换身份时清空输入
+      textPassword: ''
     });
   },
 
@@ -87,7 +88,6 @@ Page({
       },
       success: (res) => {
         // console.log('登录请求成功:', res);
-        wx.hideLoading();
         if (res.statusCode === 200 && res.data.code === 200 && res.data) { 
           wx.showToast({
             title: '登录成功',
@@ -120,11 +120,13 @@ Page({
       },
       fail: (err) => {
         console.error('登录请求失败:', err);
-        wx.hideLoading();
         wx.showToast({
           title: '登录请求失败，请检查网络',
           icon: 'none'
         });
+      },
+      complete: () => {
+        wx.hideLoading();
       }
     });
   },
@@ -152,7 +154,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      studentId: '',
+      textPassword: '',
+      showPassword: false,
+      selectedIdentity: 'student'
+    });
   },
 
   /**
