@@ -1,6 +1,6 @@
 <!--pages/bookinglab/bookinglab.wxml-->
 <view class="search-container">
-  <label for="search">搜索</label>
+  <label for="search" bind:tap="handleSearch">搜索</label>
   <input 
     type="text" 
     id="search" 

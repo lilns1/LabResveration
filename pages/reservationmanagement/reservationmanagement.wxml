@@ -79,11 +79,9 @@
         <view slot="actions" class="btn-group" wx:if="{{item.reservationStatus === 'pending'}}">
           <t-button size="small" variant="outline" theme="primary" bind:tap="confirmReservation" data-id="{{item.reservationId}}" class="action-btn confirm-btn">
             <t-icon name="check" size="32rpx" />
-            确认
           </t-button>
           <t-button size="small" variant="outline" theme="danger" bind:tap="rejectReservation" data-id="{{item.reservationId}}" class="action-btn reject-btn">
             <t-icon name="close" size="32rpx" />
-            拒绝
           </t-button>
         </view>
       </my-card>

@@ -55,7 +55,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+
+  fecthData() {
     wx.request({
       url: app.globalData.apiurl + 'lab',
       method: 'GET',
@@ -69,6 +70,10 @@ Page({
         }
       }
     });
+  },
+
+  onLoad(options) {
+    this.fecthData();
   },
 
   /**
@@ -103,7 +108,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.fecthData();
+    wx.stopPullDownRefresh();
   },
 
   /**

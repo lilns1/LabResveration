@@ -16,6 +16,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.fecthData();
+  },
+
+  fecthData() {
     this.setData({
       lab: app.globalData.lab
     });
@@ -29,12 +33,12 @@ Page({
       url: url,
       method: 'GET',
       success: (res) => {
-        // console.log(res);
+        console.log(res);
         if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
           this.setData({
             userRecords: res.data.data
           })
-          console.log(this.data.userRecords);
+          // console.log(this.data.userRecords);
           this.dealCurrentTime();
         } 
       },
@@ -147,7 +151,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.fecthData();
+    wx.stopPullDownRefresh();
   },
 
   /**

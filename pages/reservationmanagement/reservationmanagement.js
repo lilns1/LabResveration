@@ -224,5 +224,10 @@ Page({
   onShow() {
     // 页面显示时重新获取数据，以防数据更新
     this.fetchReservations();
-  }
+  },
+
+  onPullDownRefresh() {
+    this.fetchReservations();
+    wx.stopPullDownRefresh();
+  },
 })

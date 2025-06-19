@@ -5,5 +5,7 @@
     "t-swiper-nav": "tdesign-miniprogram/swiper-nav/swiper-nav",
     "my-card": "/components/my-card/my-card",
     "my-swiper": "/components/swiper/swiper"
-  }
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

@@ -30,7 +30,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+
+   fecthData() {
     this.setData({
       lab: app.globalData.lab
     });
@@ -53,7 +54,31 @@ Page({
           // console.log(this.data.noticeList);
         }
       }
-    })
+    });
+    wx.request({
+      url: app.globalData.apiurl + 'reservation/user/' + app.globalData.userid,
+      method: 'GET',
+      success: (res) => {
+        // console.log(res);
+        if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
+          this.setData({
+            reserArr: res.data.data
+          })
+          // console.log(this.data.reserArr);
+          this.getmyfirstRecord();
+        } 
+      },
+      fail: (res) => {
+        console.log(res);
+        wx.showToast({
+          title: '获取数据异常',
+          icon: 'error'
+        })
+      }
+    });
+   },
+
+  onLoad(options) {
   },
 
   getmyfirstRecord() {
@@ -61,8 +86,8 @@ Page({
     const reservations = this.data.reserArr; // 获取预约记录数组
     let foundIndex = -1; // 初始化找到的索引为 -1 (表示未找到)
 
-    // console.log("Current time:", now);
-    // console.log("Reservations to check:", reservations);
+    console.log("Current time:", now);
+    console.log("Reservations to check:", reservations);
 
     for (let i = 0; i < reservations.length; i++) {
       const reservation = reservations[i];
@@ -100,31 +125,8 @@ Page({
         value: '/' + page.route
       });
     }
-    wx.request({
-      url: this.data.searchurl,
-      method: 'GET',
-      success: (res) => {
-        // console.log(res);
-        if (res.statusCode === 200 && res.data.code === 200 && res.data.data.length) {
-          this.setData({
-            reserArr: res.data.data.reverse()
-          })
-          // console.log(123);
-          this.getmyfirstRecord();
-        } else {
-          this.setData({
-            currentIndex: -1
-          });
-        }
-      },
-      fail: (res) => {
-        console.log(res);
-        wx.showToast({
-          title: '获取数据异常',
-          icon: 'error'
-        })
-      }
-    })
+    this.fecthData();
+    
   },
 
   /**
@@ -145,7 +147,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.fecthData();
+    wx.stopPullDownRefresh();
   },
 
   /**
